@@ -1,6 +1,6 @@
 import React from "react";
 import { Content, Form, Item, Text, Input, Card, CardItem, Button } from "native-base";
-
+import MyHeader from "../Header"; 
 class Login extends React.Component {
 
   state = {user: "", password: ""}
@@ -11,7 +11,7 @@ class Login extends React.Component {
   render () {
     return (
       <Content padder>
-        
+        <MyHeader />
         <Form>
           <Item>
             <Input placeholder="User" value={this.state.user} onChange={e => {

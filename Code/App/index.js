@@ -6,7 +6,6 @@ import {
   Button,
   Header,
   Left,
-  Right,
   Icon,
   Title,
   Body
@@ -19,7 +18,7 @@ const Home = () => {
   return (
     <Button>
       <Link to="/login">
-        <Text>OLL</Text>
+        <Text>Login</Text>
       </Link>
     </Button>
   )
@@ -27,9 +26,7 @@ const Home = () => {
 
 const App = () => {
   return (
-    <Container>
-      <NativeRouter>
-      <Header noLeft>
+    <Header noLeft>
           <Left>
             <Button transparent>
               <Icon name="arrow-back" />
@@ -38,12 +35,9 @@ const App = () => {
           <Body>
             <Title>Header</Title>
           </Body>
-          <Right>
-            <Button transparent>
-              <Text>Cancel</Text>
-            </Button>
-          </Right>
-        </Header>
+    </Header>
+    <Container>
+      <NativeRouter>
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={Login} />
       </NativeRouter>
