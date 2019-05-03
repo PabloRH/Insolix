@@ -3,19 +3,27 @@ import { Content, Form, Item, Text, Input, Card, CardItem, Button } from "native
 import MyHeader from "../Header"; 
 class Login extends React.Component {
 
-  state = {user: "", password: ""}
+  state = {name: "", password: ""}
 
   sendToDB = () => {
-    console.log(this.state)
+    const data = {name: this.state.name, password: this.state.password};
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    };
+    fetch('http://pablorosas.pythonanywhere.com/logIn', options)
+      .then(res => res.json())
+      .then(res => alert(res.ID))
   }
   render () {
     return (
       <Content padder>
-        <MyHeader />
+      
         <Form>
           <Item>
-            <Input placeholder="User" value={this.state.user} onChange={e => {
-              this.setState({user: e.nativeEvent.text})
+            <Input placeholder="Name" value={this.state.name} onChange={e => {
+              this.setState({name: e.nativeEvent.text})
             }} />
           </Item>
           <Item last>

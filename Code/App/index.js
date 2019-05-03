@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 import { NativeRouter, Route, Link } from "react-router-native";
 import {
   Container,
@@ -26,22 +26,22 @@ const Home = () => {
 
 const App = () => {
   return (
-    <Header noLeft>
-          <Left>
-            <Button transparent>
-              <Icon name="arrow-back" />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Header</Title>
-          </Body>
-    </Header>
-    <Container>
+    <Fragment>
+      <Header noLeft>
+        <Left>
+          <Button transparent>
+            <Icon name="arrow-back" />
+          </Button>
+        </Left>
+        <Body>
+          <Title>Header</Title>
+        </Body>
+      </Header>
       <NativeRouter>
         <Route exact path="/" component={Home} />
         <Route exact path="/login" component={Login} />
       </NativeRouter>
-    </Container>
+    </Fragment>
   );
 };
 
