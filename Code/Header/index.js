@@ -22,7 +22,7 @@ const MyHeader = () => {
         </Button>
       </Left>
       <Body>
-        <Title>Header</Title>
+        <Title>Derbild</Title>
       </Body>
       <Right>
         <Button transparent>
