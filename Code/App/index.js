@@ -34,7 +34,7 @@ const App = () => {
           </Button>
         </Left>
         <Body>
-          <Title>Header</Title>
+          <Title>Derbild</Title>
         </Body>
       </Header>
       <NativeRouter>

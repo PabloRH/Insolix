@@ -1,4 +1,4 @@
-import React from "react";
+import React, {Fragment} from "react";
 import { Content, Form, Item, Text, Input, Card, CardItem, Button } from "native-base";
 import MyHeader from "../Header"; 
 class Login extends React.Component {
@@ -18,8 +18,9 @@ class Login extends React.Component {
   }
   render () {
     return (
+      <Fragment>
+      <MyHeader></MyHeader>
       <Content padder>
-      
         <Form>
           <Item>
             <Input placeholder="Name" value={this.state.name} onChange={e => {
@@ -36,6 +37,7 @@ class Login extends React.Component {
         </Button>
         </Form>
       </Content>
+      </Fragment>
     );
   }
   

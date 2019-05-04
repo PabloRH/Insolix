@@ -1,4 +1,4 @@
-from flask import Flask, request, json, session, redirect
+ffrom flask import Flask, request, json
 import MySQLdb
 app = Flask(__name__)
 
@@ -19,19 +19,36 @@ Der = MySQLdb.connect(
 )
 
 
-@app.route('/logIn', methods = ['POST'])
+@app.route('/')
 def index():
+    return "hi"
+
+@app.route('/logIn', methods = ['POST'])
+def logIn():
+    with Der.cursor(MySQLdb.cursors.DictCursor) as DB:
+        data = request.get_json(force=True)
+
+        user = data['user']
+        password = data['password']
+
+        DB.callproc("LogIn", [user, password])
+        row = DB.fetchone()
+        return json.dumps(row)
+
+
+@app.route('/SignUp', methods = ['Post'])
+def Sing():
     with Der.cursor(MySQLdb.cursors.DictCursor) as DB:
         data = request.get_json(force=True)
 
         name = data['name']
+        user = data['user']
         password = data['password']
-
-        query = f'SELECT ID FROM User WHERE Name="{name}" AND Password="{password}"'
-        DB.execute(query)
+        types = data['type']
+        email   = data['email']
+        DB.callproc("SignUp", [name, user, email, password, types])
         row = DB.fetchone()
         return json.dumps(row)
-
 
 @app.route('/log')
 def logout():
