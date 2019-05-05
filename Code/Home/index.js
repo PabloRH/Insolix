@@ -5,34 +5,20 @@ import { Link } from "react-router-native";
 import { StyleSheet, View } from "react-native";
 
 import MyHeader from "../Header"
-
-const styles = StyleSheet.create({
-  appContainer: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center"
-  },
-  btn: {
-    backgroundColor: "transparent",
-    width: 260,
-    margin: 16,
-    height: 40,
-    justifyContent: "center"
-  }
-});
+import MyStyles from "../styles"
 
 const Home = () => {
   return (
     <React.Fragment>
       <MyHeader text="Derbild" subtitle="Welcome" />
-      <View style={styles.appContainer}>
+      <View style={MyStyles.appContainer}>
         <Link to="/login">
-          <Button mode="outlined" theme={{ roundness: 20 }} style={styles.btn}>
+          <Button mode="outlined" style={MyStyles.btn}>
             Log In
           </Button>
         </Link>
         <Link to="/signup">
-          <Button mode="outlined" theme={{ roundness: 20 }} style={styles.btn}>
+          <Button mode="outlined" style={MyStyles.btn}>
             Sign Up
           </Button>
         </Link>

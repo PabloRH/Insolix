@@ -1,6 +1,12 @@
 import { StyleSheet } from 'react-native'
 
 const styles = StyleSheet.create({
+    appContainer: {
+      flex: 1,
+      marginTop: 20,
+      alignItems: "center",
+      justifyContent: "flex-start"
+    },
     input: {
       width: 260,
       margin: 16,

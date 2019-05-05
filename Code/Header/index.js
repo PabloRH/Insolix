@@ -6,7 +6,7 @@ import { Appbar } from "react-native-paper";
 class MyHeader extends React.PureComponent {
   render() {
     return (
-      <Appbar.Header statusBarHeight={10}>
+      <Appbar.Header statusBarHeight={28}>
           {
             this.props.hasAnArrow && <Appbar.BackAction onPress={() => this.props.history.push(this.props.link)} /> 
           }

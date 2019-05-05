@@ -10,8 +10,9 @@ const theme = {
     accent: '#03DAC6',
     background:'#FFFFFF', 
     surface: '#FFFFFF',
-    text: '#FFFFFF'
-    },
+    text: '#FFFFFF',
+  },
+  roundness: 20,
 };
   
 const AppWrapper = () => {
