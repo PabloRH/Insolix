@@ -1,31 +1,11 @@
-import * as React from 'react';
-import { Appbar, Button, TextInput } from 'react-native-paper';
-import { NativeRouter, Route, Link } from "react-router-native";
-import { StyleSheet, View} from 'react-native'
+import React from 'react';
+import { Button, TextInput } from 'react-native-paper';
+import { View } from 'react-native'
 
-const styles = StyleSheet.create({
-  input: {
-    width: 260,
-    margin: 16,
-    height: 60
-  },
-  btn: {
-    backgroundColor: 'transparent',
-    width: 260,
-    height: 40,
-    margin: 16,
-    justifyContent: 'center'
-  },
-  bottomView: {
-    flex: 1,
-    width: '100%',
-    height: 50,
-    justifyContent: 'center',
-    alignItems: 'center'
-  }
-});
+import MyHeader from "../Header"
+import MyStyle from "./styles"
+
 class Login extends React.Component {
-
   state = {name: "", password: ""}
 
   sendToDB = () => {
@@ -39,28 +19,23 @@ class Login extends React.Component {
       .then(res => res.json())
       .then(res => alert(res.ID))
   }
+
   render () {
     return (
       <React.Fragment>
-        <Appbar.Header>
-        <Appbar.BackAction />
-          <Appbar.Content
-            title="Derbild"
-            subtitle="Log In"
-          />
-        </Appbar.Header>
-        <View style={styles.bottomView}> 
-          <TextInput label='User' mode='outlined' style={styles.input} theme={{ colors:{text:'black'}}}
+        <MyHeader text="Derbild" subtitle="Log In" link="/" hasAnArrow />
+        <View style={MyStyle.bottomView}> 
+          <TextInput label='User' mode='outlined' style={MyStyle.input} theme={{ colors:{text:'black'}}}
           value={this.state.name} onChange={e => {
           this.setState({name: e.nativeEvent.text})
           }} />
            
-          <TextInput label='Password' mode='outlined' style={styles.input} theme={{ colors:{text:'black'}}}
+          <TextInput label='Password' mode='outlined' style={MyStyle.input} theme={{ colors:{text:'black'}}}
           value={this.state.password} onChange={e => {
           this.setState({password: e.nativeEvent.text})
           }} />
 
-          <Button mode="outlined" onPress={this.sendToDB} style={styles.btn}>
+          <Button mode="outlined" onPress={this.sendToDB} style={MyStyle.btn}>
             Log In
           </Button>
         </View>

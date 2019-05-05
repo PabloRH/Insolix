@@ -1,8 +1,10 @@
 import React from "react";
 
-import { Appbar, Button } from "react-native-paper";
+import { Button } from "react-native-paper";
 import { Link } from "react-router-native";
 import { StyleSheet, View } from "react-native";
+
+import MyHeader from "../Header"
 
 const styles = StyleSheet.create({
   appContainer: {
@@ -22,9 +24,7 @@ const styles = StyleSheet.create({
 const Home = () => {
   return (
     <React.Fragment>
-      <Appbar.Header>
-        <Appbar.Content title="Derbild" subtitle="Welcome" />
-      </Appbar.Header>
+      <MyHeader text="Derbild" subtitle="Welcome" />
       <View style={styles.appContainer}>
         <Link to="/login">
           <Button mode="outlined" theme={{ roundness: 20 }} style={styles.btn}>

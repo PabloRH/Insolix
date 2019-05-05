@@ -1,36 +1,22 @@
 import React from "react";
-import {
-  Button,
-  Header,
-  Left,
-  Icon,
-  Title,
-  Right,
-  Body,
-} from "native-base";
+import { withRouter } from "react-router-native";
+import { Appbar } from "react-native-paper";
 
-import { Link } from "react-router-native";
 
-const MyHeader = () => {
-  return (
-    <Header>
-      <Left>
-        <Link to="">  
-          <Button transparent>
-            <Icon name='arrow-back' />
-          </Button>
-        </Link>  
-      </Left>
-      <Body>
-        <Title>Head</Title>
-      </Body>
-      <Right>
-        <Button transparent>
-          <Icon name='menu' />
-        </Button>
-      </Right>
-    </Header>
-  );
-};
+class MyHeader extends React.PureComponent {
+  render() {
+    return (
+      <Appbar.Header statusBarHeight={10}>
+          {
+            this.props.hasAnArrow && <Appbar.BackAction onPress={() => this.props.history.push(this.props.link)} /> 
+          }
+          <Appbar.Content title={this.props.text} subtitle={this.props.subtitle} />
+          {
+            this.props.hasSetting && <Appbar.BackAction onPress={() => this.props.history.push(this.props.link)} /> 
+          }
+        </Appbar.Header>
+    );
+  }
+}
 
-export default MyHeader;
+export default withRouter(MyHeader);

@@ -2,6 +2,9 @@ import * as React from 'react';
 import { Appbar, Button, TextInput } from 'react-native-paper';
 import { NativeRouter, Route, Link } from "react-router-native";
 import { StyleSheet, View} from 'react-native'
+
+import MyHeader from "../Header"
+
 const styles = StyleSheet.create({
   input: {
     width: 260,
@@ -46,13 +49,7 @@ class Login extends React.Component {
   render () {
     return (
       <React.Fragment>
-        <Appbar.Header>
-            <Appbar.BackAction />
-            <Appbar.Content
-            title="Derbild"
-            subtitle="Log In"
-            />
-        </Appbar.Header>
+        <MyHeader text="Derbild" subtitle="Sign In" link="/" hasAnArrow />
         <View style={styles.bottomView}> 
           <TextInput label='Name' mode='outlined' style={styles.input} theme={{ colors:{text:'black'}}}
           value={this.state.name} onChange={e => {
