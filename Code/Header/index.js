@@ -15,18 +15,18 @@ const MyHeader = () => {
   return (
     <Header>
       <Left>
-        <Button transparent>
-        <Link to="/">
-          <Icon name="arrow-back" />
-        </Link>
-        </Button>
+        <Link to="">  
+          <Button transparent>
+            <Icon name='arrow-back' />
+          </Button>
+        </Link>  
       </Left>
       <Body>
-        <Title>Derbild</Title>
+        <Title>Head</Title>
       </Body>
       <Right>
         <Button transparent>
-          <Icon name="menu" />
+          <Icon name='menu' />
         </Button>
       </Right>
     </Header>

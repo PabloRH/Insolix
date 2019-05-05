@@ -1,4 +1,4 @@
-ffrom flask import Flask, request, json
+from flask import Flask, request, json
 import MySQLdb
 app = Flask(__name__)
 

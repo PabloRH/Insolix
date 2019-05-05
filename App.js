@@ -1,24 +1,23 @@
 import React from "react";
-import { Font, AppLoading } from "expo";
-
+import { DefaultTheme, Provider as PaperProvider } from 'react-native-paper';
 import App from "./Code/App"
 
-class AppContainer extends React.Component {
-  state = { loading: true };
-
-  async componentDidMount() {
-    await Font.loadAsync({
-      Roboto: require("native-base/Fonts/Roboto.ttf"),
-      Roboto_medium: require("native-base/Fonts/Roboto_medium.ttf")
-    });
-
-    this.setState({ loading: false });
+const theme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#6200EE',
+    accent: '#03DAC6',
+    background:'#FFFFFF', 
+    surface: '#FFFFFF',
+    text: '#FFFFFF'
+    },
+};
+  
+  export default function Main() {
+    return (
+      <PaperProvider theme={theme}>
+        <App />
+      </PaperProvider>
+    );
   }
-
-  render() {
-    return this.state.loading?  <AppLoading /> : <App />
-  }
-}
-
-export default AppContainer;
-
