@@ -1,6 +1,5 @@
 import * as React from 'react';
-import { Appbar, Button, TextInput } from 'react-native-paper';
-import { NativeRouter, Route, Link } from "react-router-native";
+import { Button, TextInput } from 'react-native-paper';
 import { StyleSheet, View} from 'react-native'
 
 import MyHeader from "../Header"

@@ -12,11 +12,10 @@ class MyHeader extends React.PureComponent {
           }
           <Appbar.Content title={this.props.text} subtitle={this.props.subtitle} />
           {
-            this.props.hasSetting && <Appbar.BackAction onPress={() => this.props.history.push(this.props.link)} /> 
+            this.props.hasSetting && <Appbar.Action icon="more-vert" onPress={() => this.props.history.push(this.props.link)} /> 
           }
         </Appbar.Header>
     );
   }
 }
-
 export default withRouter(MyHeader);

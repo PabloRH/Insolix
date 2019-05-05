@@ -2,7 +2,7 @@ import React from "react";
 
 import { Button } from "react-native-paper";
 import { Link } from "react-router-native";
-import { StyleSheet, View } from "react-native";
+import { View } from "react-native";
 
 import MyHeader from "../Header"
 import MyStyles from "../styles"
