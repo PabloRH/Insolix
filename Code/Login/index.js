@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { withRouter } from "react-router-native";
 import { Button, TextInput, ActivityIndicator, Colors } from 'react-native-paper';
 import { View } from 'react-native'
 
@@ -21,7 +22,7 @@ class Login extends React.Component {
       .then(res => res.json())
       .then(res => {
         this.setState({loading: false})
-        alert(res.ID)
+        this.props.history.push("/SignedIn")
       })
     
     this.setState({loading: true})
@@ -66,4 +67,4 @@ class Login extends React.Component {
   }  
 };
 
-export default Login;
+export default withRouter(Login);

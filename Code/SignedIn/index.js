@@ -1,37 +1,31 @@
-import * as React from 'react';
+import React from 'react';
 import { BottomNavigation, Text } from 'react-native-paper';
 
-const MusicRoute = () => <Text>Music</Text>;
+import Profile from "./Profile"
+const Gallery = () => <Text>Gallery</Text>;
+const MyWork = () => <Text>MyWork</Text>;
 
-const AlbumsRoute = () => <Text>Albums</Text>;
+const routes = [
+  { key: 'Profile', title: 'Profile', icon: 'queue-music' },
+  { key: 'Gallery', title: 'Gallery', icon: 'album' },
+  { key: 'MyWork', title: 'My Work', icon: 'history' },
+]
 
-const RecentsRoute = () => <Text>Recents</Text>;
+Screens = BottomNavigation.SceneMap({ Profile, Gallery, MyWork });
 
-export default class MyComponent extends React.Component {
-  state = {
-    index: 0,
-    routes: [
-      { key: 'music', title: 'Music', icon: 'queue-music' },
-      { key: 'albums', title: 'Albums', icon: 'album' },
-      { key: 'recents', title: 'Recents', icon: 'history' },
-    ],
-  };
-
-  _handleIndexChange = index => this.setState({ index });
-
-  _renderScene = BottomNavigation.SceneMap({
-    music: MusicRoute,
-    albums: AlbumsRoute,
-    recents: RecentsRoute,
-  });
+class SignedIn extends React.Component {
+  state = { index: 0, routes};
+  handleIndexChange = index => this.setState({ index });
 
   render() {
     return (
       <BottomNavigation
         navigationState={this.state}
-        onIndexChange={this._handleIndexChange}
-        renderScene={this._renderScene}
+        onIndexChange={this.handleIndexChange}
+        renderScene={Screens}
       />
     );
   }
 }
+
+export default SignedIn 
