@@ -6,12 +6,12 @@ CREATE PROCEDURE LogIn (IN _user VARCHAR(25), IN _password VARCHAR(25))
             WHERE 
                 User = _user AND 
                 Password = _password;
-END //
+    END //
 DELIMITER ;
 
 DROP PROCEDURE IF EXISTS SignUp;
 DELIMITER //
-CREATE PROCEDURE SignUp (IN _user VARCHAR(25), IN _password VARCHAR(25), IN _name VARCHAR(25), IN _type VARCHAR(25), IN _email VARCHAR(25))
+CREATE PROCEDURE SignUp (IN _name VARCHAR(25), IN _user VARCHAR(25), IN _email VARCHAR(25), IN _password VARCHAR(25), IN _types VARCHAR(25))
     BEGIN
         INSERT INTO User(Name, User, Email, Password, Type)  
             VALUES(
@@ -19,8 +19,11 @@ CREATE PROCEDURE SignUp (IN _user VARCHAR(25), IN _password VARCHAR(25), IN _nam
                 _user,
                 _email,
                 _password,
-                _type
+                _types
             );
-        SELECT LAST_INSERT_ID() AS ID;
-END //
+        SELECT ID FROM User
+            WHERE
+                User = _user AND 
+                Password = _password;
+    END //
 DELIMITER ;

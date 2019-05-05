@@ -28,14 +28,15 @@ const styles = StyleSheet.create({
 });
 class Login extends React.Component {
 
-  state = {name: "", password: "", email: "", user: ""}
+  state = {name: "", password: "", email: "", user: "", types:""}
 
   sendToDB = () => {
     const data = {
         name: this.state.name, 
         password: this.state.password,
         user: this.state.user,
-        email: this.state.email
+        email: this.state.email,
+        types: this.state.types
     };
     const options = {
       method: "POST",
@@ -70,6 +71,11 @@ class Login extends React.Component {
           value={this.state.email} onChange={e => {
           this.setState({email: e.nativeEvent.text})
           }} />
+
+          <TextInput label='Tipo de usuario' mode='outlined' style={styles.input} theme={{ colors:{text:'black'}}}
+          value={this.state.types} onChange={e => {
+          this.setState({types: e.nativeEvent.text})
+          }} /> 
 
           <Button mode="outlined" onPress={this.sendToDB} style={styles.btn}>
             Sign Up

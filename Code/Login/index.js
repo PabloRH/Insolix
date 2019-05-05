@@ -6,10 +6,10 @@ import MyHeader from "../Header"
 import MyStyle from "../styles"
 
 class Login extends React.Component {
-  state = {name: "", password: ""}
+  state = {user: "", password: ""}
 
   sendToDB = () => {
-    const data = {name: this.state.name, password: this.state.password};
+    const data = {user: this.state.user, password: this.state.password};
     const options = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -36,8 +36,8 @@ class Login extends React.Component {
           <TextInput 
             {...textProps} 
             label = 'User' 
-            value = {this.state.name} 
-            onChange = {e => { this.setState({name: e.nativeEvent.text})}}
+            value = {this.state.user} 
+            onChange = {e => { this.setState({user: e.nativeEvent.text})}}
           />
           <TextInput 
             {...textProps} 
