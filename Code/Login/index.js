@@ -5,6 +5,7 @@ import { View } from 'react-native'
 
 import MyHeader from "../Header"
 import MyStyle from "../styles"
+import { Data } from "../App/Data" 
 
 class Login extends React.Component {
   state = {user: "", password: "", loading: false}
@@ -20,8 +21,10 @@ class Login extends React.Component {
 
     fetch('http://pablorosas.pythonanywhere.com/logIn', options)
       .then(res => res.json())
-      .then(res => {
+      .then(data => {
         this.setState({loading: false})
+        console.log(data)
+        this.context[1](data)
         this.props.history.push("/SignedIn")
       })
     
@@ -66,5 +69,8 @@ class Login extends React.Component {
     );
   }  
 };
+
+
+Login.contextType = Data;
 
 export default withRouter(Login);
