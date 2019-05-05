@@ -1,14 +1,15 @@
 import React, { Fragment } from 'react';
-import { Button, TextInput } from 'react-native-paper';
+import { Button, TextInput, ActivityIndicator, Colors } from 'react-native-paper';
 import { View } from 'react-native'
 
 import MyHeader from "../Header"
 import MyStyle from "../styles"
 
 class Login extends React.Component {
-  state = {user: "", password: ""}
+  state = {user: "", password: "", loading: false}
 
   sendToDB = () => {
+    if (this.state.loading) return
     const data = {user: this.state.user, password: this.state.password};
     const options = {
       method: "POST",
@@ -18,7 +19,12 @@ class Login extends React.Component {
 
     fetch('http://pablorosas.pythonanywhere.com/logIn', options)
       .then(res => res.json())
-      .then(res => alert(res.ID))
+      .then(res => {
+        this.setState({loading: false})
+        alert(res.ID)
+      })
+    
+    this.setState({loading: true})
   }
 
   render () {
@@ -37,18 +43,23 @@ class Login extends React.Component {
             {...textProps} 
             label = 'User' 
             value = {this.state.user} 
-            onChange = {e => { this.setState({user: e.nativeEvent.text})}}
+            onChange = {e => this.setState({user: e.nativeEvent.text})}
           />
           <TextInput 
             {...textProps} 
             label = 'Password' 
             value = {this.state.password} 
-            onChange = {e => { this.setState({password: e.nativeEvent.text})}}
+            onChange = {e => this.setState({password: e.nativeEvent.text})}
           />
-
           <Button mode="outlined" onPress={this.sendToDB} style={MyStyle.btn}>
             Log In
           </Button>
+
+          {
+            this.state.loading && 
+            <ActivityIndicator animating={true} size={"large"} color={Colors.red800} />
+          }
+
         </View>
       </Fragment>
     );
