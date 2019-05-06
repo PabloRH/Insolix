@@ -54,19 +54,24 @@ class Login extends React.Component {
       <Fragment>
         <MyHeader text="Derbild" subtitle="Log In" link="/" hasAnArrow />
         <View style={MyStyle.appContainer}> 
-          <TextInput 
-            {...textProps} 
-            label = 'User'
-            value = {this.state.user} 
-            onChange = {e => this.setState({user: e.nativeEvent.text})}
-          /><Icon name='person' />
-          <TextInput 
-            {...textProps} 
-            icon="security"
-            label = 'Password' 
-            value = {this.state.password} 
-            onChange = {e => this.setState({password: e.nativeEvent.text})}
-          />
+          <View style={MyStyle.sideIcon}>
+            <Icon name="person" />
+            <TextInput 
+              {...textProps} 
+              label = 'User'
+              value = {this.state.user} 
+              onChange = {e => this.setState({user: e.nativeEvent.text})}
+            />
+          </View>
+          <View style={MyStyle.sideIcon}>
+            <Icon name="lock" />
+            <TextInput 
+              {...textProps} 
+              label = 'Password' 
+              value = {this.state.password} 
+              onChange = {e => this.setState({password: e.nativeEvent.text})}
+            />
+          </View>
           <Button icon="send" mode="outlined" onPress={this.sendToDB} style={MyStyle.btn}>
             Log In
           </Button>

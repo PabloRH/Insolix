@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import { Text } from 'react-native-paper';
-import { View } from 'react-native'
+import { View, Icon } from 'react-native'
 
 import MyHeader from "../../Header"
 import MyStyles from "../../styles"
@@ -19,7 +19,7 @@ const Profile = () => {
               const [data, setData] = context
               return (
                 <Text theme={{colors: {text: '#000000',}}}> { data.ID } </Text>
-              )
+              ) 
             }
           }
         </Data.Consumer>

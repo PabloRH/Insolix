@@ -1,7 +1,8 @@
 import React, { Fragment } from 'react';
 import { withRouter } from "react-router-native";
 import { Button, TextInput, ActivityIndicator, Colors } from 'react-native-paper';
-import { View, Alert } from 'react-native'
+import { View, Alert, } from 'react-native'
+import { Icon } from 'native-base';
 
 import MyHeader from "../Header"
 import MyStyles from "../styles"
@@ -46,32 +47,42 @@ class Login extends React.Component {
       <Fragment>
         <MyHeader text="Derbild" subtitle="Sign In" link="/" hasAnArrow />
         <View style={MyStyles.bottomView}> 
-          <TextInput label='Name' mode='outlined' style={MyStyles.input} theme={{ colors:{text:'black'}}}
-          value={this.state.name} onChange={e => {
-          this.setState({name: e.nativeEvent.text})
-          }} />
-           
-          <TextInput label='User' mode='outlined' style={MyStyles.input} theme={{ colors:{text:'black'}}}
-          value={this.state.user} onChange={e => {
-          this.setState({user: e.nativeEvent.text})
-          }} />
+          <View style={MyStyles.sideIcon}>
+            <Icon name="person" />
+            <TextInput label='Name' mode='outlined' style={MyStyles.input} theme={{ colors:{text:'black'}}}
+            value={this.state.name} onChange={e => {
+            this.setState({name: e.nativeEvent.text})
+            }} /></View>
 
-          <TextInput label='Password' mode='outlined' style={MyStyles.input} theme={{ colors:{text:'black'}}}
-          value={this.state.password} onChange={e => {
-          this.setState({password: e.nativeEvent.text})
-          }} />
+          <View style={MyStyles.sideIcon}>
+            <Icon name="person" />  
+            <TextInput label='User' mode='outlined' style={MyStyles.input} theme={{ colors:{text:'black'}}}
+            value={this.state.user} onChange={e => {
+            this.setState({user: e.nativeEvent.text})
+            }} /></View>
 
-          <TextInput label='E-mail' mode='outlined' style={MyStyles.input} theme={{ colors:{text:'black'}}}
-          value={this.state.email} onChange={e => {
-          this.setState({email: e.nativeEvent.text})
-          }} />
+          <View style={MyStyles.sideIcon}>
+            <Icon name="lock" />
+            <TextInput label='Password' mode='outlined' style={MyStyles.input} theme={{ colors:{text:'black'}}}
+            value={this.state.password} onChange={e => {
+            this.setState({password: e.nativeEvent.text})
+            }} /></View>
 
-          <TextInput label='Tipo de usuario' mode='outlined' style={MyStyles.input} theme={{ colors:{text:'black'}}}
-          value={this.state.types} onChange={e => {
-          this.setState({types: e.nativeEvent.text})
-          }} /> 
+          <View style={MyStyles.sideIcon}>
+            <Icon name="mail" />
+            <TextInput label='E-mail' mode='outlined' style={MyStyles.input} theme={{ colors:{text:'black'}}}
+            value={this.state.email} onChange={e => {
+            this.setState({email: e.nativeEvent.text})
+            }} /></View>
 
-          <Button mode="outlined" onPress={this.sendToDB} style={MyStyles.btn}>
+          <View style={MyStyles.sideIcon}>
+            <Icon name="star" />
+            <TextInput label='Tipo de usuario' mode='outlined' style={MyStyles.input} theme={{ colors:{text:'black'}}}
+            value={this.state.types} onChange={e => {
+            this.setState({types: e.nativeEvent.text})
+            }} /></View>
+
+          <Button icon="send" mode="outlined" onPress={this.sendToDB} style={MyStyles.btn}>
             Sign Up
           </Button>
           {

@@ -4,6 +4,11 @@
     "slug": "T2",
     "privacy": "public",
     "sdkVersion": "32.0.0",
+    "andrioid": [{
+      "package":"com.PabloRH.T2",
+      "versionCode":1 , 
+      "icon": "./assets/icon.png"
+      }],
     "platforms": [
       "ios",
       "android"
