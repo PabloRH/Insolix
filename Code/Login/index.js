@@ -1,10 +1,11 @@
 import React, { Fragment } from 'react';
 import { withRouter } from "react-router-native";
 import { Button, TextInput, ActivityIndicator, Colors } from 'react-native-paper';
-import { View } from 'react-native'
+import { View, Alert } from 'react-native'
 
 import MyHeader from "../Header"
 import MyStyle from "../styles"
+import { Icon } from 'native-base';
 //import { Data } from "../App/Data" 
 
 class Login extends React.Component {
@@ -23,7 +24,9 @@ class Login extends React.Component {
       .then(res => res.json())
       .then(res => {
         if (res.ID == null)
-          alert('No existe este Usuario\n¿Quieres Regitarte?')
+          Alert.alert('¡Oh ha ocurrido un error!',
+          'No existe este Usuario\nΣ(▼ □ ▼メ)',
+          [{text: '¿Quieres Regitarte?', onPress: () => this.props.history.push("/SignUp")}])
         else
           this.props.history.push("/SignedIn")
         })
@@ -53,17 +56,18 @@ class Login extends React.Component {
         <View style={MyStyle.appContainer}> 
           <TextInput 
             {...textProps} 
-            label = 'User' 
+            label = 'User'
             value = {this.state.user} 
             onChange = {e => this.setState({user: e.nativeEvent.text})}
-          />
+          /><Icon name='person' />
           <TextInput 
             {...textProps} 
+            icon="security"
             label = 'Password' 
             value = {this.state.password} 
             onChange = {e => this.setState({password: e.nativeEvent.text})}
           />
-          <Button mode="outlined" onPress={this.sendToDB} style={MyStyle.btn}>
+          <Button icon="send" mode="outlined" onPress={this.sendToDB} style={MyStyle.btn}>
             Log In
           </Button>
 

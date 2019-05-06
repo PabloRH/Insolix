@@ -18,11 +18,7 @@ const Profile = () => {
               console.log(context)
               const [data, setData] = context
               return (
-                <Text theme={{colors: {text: '#000000',}}}>
-                  {
-                    data.ID
-                  }
-                </Text>
+                <Text theme={{colors: {text: '#000000',}}}> { data.ID } </Text>
               )
             }
           }
