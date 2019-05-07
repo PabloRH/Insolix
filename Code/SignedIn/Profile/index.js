@@ -7,7 +7,9 @@ import MyStyles from "../../styles"
 
 import { Data } from "../../App/Data" 
 
-state = {name: "", password: "", email: "", user: "", types:"", loading: false}
+class Profile extends React.Component {
+
+  state = {name: "", password: "", email: "", user: "", types:"", loading: false}
 
   sendToDB = () => {
     if (this.state.loading) return
@@ -40,9 +42,9 @@ state = {name: "", password: "", email: "", user: "", types:"", loading: false}
       })
         this.setState({loading: true})
       }
-const Profile = () => {
-  return (
-    <Fragment>
+  render() {    
+    return (
+      <Fragment>
       <MyHeader text="Usuario" subtitle="tipo de usuario" link="/" hasSetting  />
       <View style={MyStyles.appContainer}>
       <ScrollView>
@@ -106,7 +108,8 @@ const Profile = () => {
         </Data.Consumer>
       </View>
     </Fragment>
-  );
+    );  
+    }
 };
 
 export default Profile;
