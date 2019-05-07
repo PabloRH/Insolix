@@ -2,16 +2,18 @@ import React from 'react';
 import { BottomNavigation, Text } from 'react-native-paper';
 
 import Profile from "./Profile"
-const Gallery = () => <Text>Gallery</Text>;
-const MyWork = () => <Text>MyWork</Text>;
+import Gallery from "./Gallery"
+import MyWorks from "./MyWorks"
+
+
 
 const routes = [
-  { key: 'Profile', title: 'Profile', icon: 'queue-music' },
-  { key: 'Gallery', title: 'Gallery', icon: 'album' },
-  { key: 'MyWork', title: 'My Work', icon: 'history' },
+  { key: 'Profile', title: 'Profile', icon: 'assignment-ind' },
+  { key: 'Gallery', title: 'Gallery', icon: 'collections' },
+  { key: 'MyWorks', title: 'My Works', icon: 'camera-enhance' },
 ]
 
-Screens = BottomNavigation.SceneMap({ Profile, Gallery, MyWork });
+Screens = BottomNavigation.SceneMap({ Profile, Gallery, MyWorks });
 
 class SignedIn extends React.Component {
   state = { index: 0, routes};

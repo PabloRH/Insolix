@@ -10,7 +10,8 @@ const theme = {
     accent: '#03DAC6',
     background:'#FFFFFF', 
     surface: '#FFFFFF',
-    text: '#FFFFFF',
+    text: '#000000',
+    error: '#B00020',
   },
   roundness: 20,
 };
