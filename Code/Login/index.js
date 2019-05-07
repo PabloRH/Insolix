@@ -23,21 +23,14 @@ class Login extends React.Component {
     fetch('http://pablorosas.pythonanywhere.com/logIn', options)
       .then(res => res.json())
       .then(res => {
-        if (res.ID == null)
+        if (res.ID == null) {
           Alert.alert('¡Oh ha ocurrido un error!',
           'No existe este Usuario\nΣ(▼ □ ▼メ)',
           [{text: '¿Quieres Regitarte?', onPress: () => this.props.history.push("/SignUp")}])
-        else
-          this.props.history.push("/SignedIn")
+          this.setState({loading: false})
+
+        } else this.props.history.push("/SignedIn")
         })
-      .then(data => {
-        this.setState({loading: false})
-        console.log(data)
-  //      const [contextData, setData] = this.context
-  //      console.log(contextData)
- //       console.log(setData)
-       
-      })
     
     this.setState({loading: true})
   }

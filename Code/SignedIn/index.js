@@ -2,8 +2,8 @@ import React from 'react';
 import { BottomNavigation, Text } from 'react-native-paper';
 
 import Profile from "./Profile"
-const Gallery = () => "Gallery"
-const MyWorks = () => "MyWorks"
+const Gallery = () => <Text>"Gallery"</Text>
+const MyWorks = () => <Text>"MyWorks"</Text>
 
 const routes = [
   { key: 'Profile', title: 'Profile', icon: 'assignment-ind' },

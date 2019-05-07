@@ -5,60 +5,7 @@ import { View, Icon, ScrollView } from "react-native";
 import MyHeader from "../../Header";
 import MyStyles from "../../styles";
 
-import { Data } from "../../App/Data";
-
 class Profile extends React.Component {
-  state = {
-    name: "",
-    password: "",
-    email: "",
-    user: "",
-    types: "",
-    loading: false
-  }
-
-  sendToDB = () => {
-    if (this.state.loading) return;
-    const data = {
-      name: this.state.name,
-      password: this.state.password,
-      user: this.state.user,
-      email: this.state.email,
-      types: this.state.types
-    };
-    
-    const options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    };
-    fetch("http://pablorosas.pythonanywhere.com/SignUp", options)
-      .then(res => res.json())
-      .then(res => {
-        if (res.ID == null)
-          Alert.alert(
-            "¡Oh ha ocurrido un error!",
-            "El servido no parece Servir\n",
-            [
-              {
-                text: "Σ(▼ □ ▼メ)",
-                onPress: () => this.props.history.push("/")
-              }
-            ]
-          );
-        else
-          Alert.alert("¡Bienvenido a DERBILD!", "Por Favor Inicia Sesion.\n", [
-            {
-              text: "¡¡ Vamos ♡＼(￣▽￣)／♡ !!",
-              onChange: () => this.props.history.push("/Login")
-            }
-          ]);
-      })
-      .then(data => {
-        this.setState({ loading: false });
-      });
-    this.setState({ loading: true });
-  }
   
   render() {
     return (
@@ -91,67 +38,7 @@ class Profile extends React.Component {
                   label="Name"
                   mode="outlined"
                   style={MyStyles.input}
-                  disabled={true}
-                  value={this.state.name}
-                  onChange={e => {
-                    this.setState({ name: e.nativeEvent.text });
-                  }}
-                />
-              </View>
-
-              <View style={MyStyles.sideIcon}>
-                <Icon name="person" />
-                <TextInput
-                  label="User"
-                  mode="outlined"
-                  style={MyStyles.input}
-                  disabled
-                  value={this.state.user}
-                  onChange={e => {
-                    this.setState({ user: e.nativeEvent.text });
-                  }}
-                />
-              </View>
-
-              <View style={MyStyles.sideIcon}>
-                <Icon name="lock" />
-                <TextInput
-                  label="Password"
-                  mode="outlined"
-                  style={MyStyles.input}
-                 disabled
-                  value={this.state.password}
-                  onChange={e => {
-                    this.setState({ password: e.nativeEvent.text });
-                  }}
-                />
-              </View>
-
-              <View style={MyStyles.sideIcon}>
-                <Icon name="mail" />
-                <TextInput
-                  label="E-mail"
-                  mode="outlined"
-                  style={MyStyles.input}
-                 disabled
-                  value={this.state.email}
-                  onChange={e => {
-                    this.setState({ email: e.nativeEvent.text });
-                  }}
-                />
-              </View>
-
-              <View style={MyStyles.sideIcon}>
-                <Icon name="star" />
-                <TextInput
-                  label="Tipo de usuario"
-                  mode="outlined"
-                  style={MyStyles.input}
-                 disabled
-                  value={this.state.types}
-                  onChange={e => {
-                    this.setState({ types: e.nativeEvent.text });
-                  }}
+                  value={"pepe"}
                 />
               </View>
 
@@ -171,4 +58,4 @@ class Profile extends React.Component {
   }
 }
 
-export default Profile;
+export default Profile
