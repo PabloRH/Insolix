@@ -1,12 +1,13 @@
 import React, {Fragment} from "react";
 
 import { Button,Avatar, Card, Text, Paragraph } from "react-native-paper";
-import { Link } from "react-router-native";
+import { Link, withRouter } from "react-router-native";
 import { View, ScrollView } from "react-native";
 import MyHeader from "../Header"
 import MyStyles from "../styles"
 
-const Home = () => {
+class Home extends React.Component {
+  render() {
   return (
     <Fragment>
       <MyHeader text="Derbild" subtitle="Welcome" />
@@ -28,16 +29,15 @@ const Home = () => {
             </Button>
           </Link>
           <Text >¡¿Que aun no tienes una cuenta?!, ¿Que esperas? es !!!FACILISIMO¡¡¡</Text>
-          <Link to="/signup">
-            <Button icon="person-add" mode="outlined" style={MyStyles.btn}>
-              Sign Up
-            </Button>
-          </Link>
+          <Button icon="person-add" mode="outlined" style={MyStyles.btn}  onPress={() => this.props.history.push("signup")}>
+            Sign Up
+          </Button>
         </View>
       </ScrollView>  
     </Fragment>
   );
-};
+  }
+}
 
-export default Home;
+export default withRouter(Home);
 
