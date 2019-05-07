@@ -15,7 +15,7 @@ class Profile extends React.Component {
     user: "",
     types: "",
     loading: false
-  };
+  }
 
   sendToDB = () => {
     if (this.state.loading) return;
@@ -58,7 +58,8 @@ class Profile extends React.Component {
         this.setState({ loading: false });
       });
     this.setState({ loading: true });
-  };
+  }
+  
   render() {
     return (
       <Fragment>
@@ -90,7 +91,7 @@ class Profile extends React.Component {
                   label="Name"
                   mode="outlined"
                   style={MyStyles.input}
-                  disabled={"true"}
+                  disabled={true}
                   value={this.state.name}
                   onChange={e => {
                     this.setState({ name: e.nativeEvent.text });
@@ -104,7 +105,7 @@ class Profile extends React.Component {
                   label="User"
                   mode="outlined"
                   style={MyStyles.input}
-                  disabled={"true"}
+                  disabled
                   value={this.state.user}
                   onChange={e => {
                     this.setState({ user: e.nativeEvent.text });
@@ -118,7 +119,7 @@ class Profile extends React.Component {
                   label="Password"
                   mode="outlined"
                   style={MyStyles.input}
-                  disabled={"true"}
+                 disabled
                   value={this.state.password}
                   onChange={e => {
                     this.setState({ password: e.nativeEvent.text });
@@ -132,7 +133,7 @@ class Profile extends React.Component {
                   label="E-mail"
                   mode="outlined"
                   style={MyStyles.input}
-                  disabled={"true"}
+                 disabled
                   value={this.state.email}
                   onChange={e => {
                     this.setState({ email: e.nativeEvent.text });
@@ -146,7 +147,7 @@ class Profile extends React.Component {
                   label="Tipo de usuario"
                   mode="outlined"
                   style={MyStyles.input}
-                  disabled={"true"}
+                 disabled
                   value={this.state.types}
                   onChange={e => {
                     this.setState({ types: e.nativeEvent.text });
@@ -164,15 +165,6 @@ class Profile extends React.Component {
               </Button>
             </View>
           </ScrollView>
-          <Data.Consumer>
-            {context => {
-              console.log(context);
-              const [data, setData] = context;
-              return (
-                <Text theme={{ colors: { text: "#000000" } }}> {data.ID} </Text>
-              );
-            }}
-          </Data.Consumer>
         </View>
       </Fragment>
     );

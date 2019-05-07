@@ -8,7 +8,7 @@ const theme = {
     ...DefaultTheme.colors,
     primary: '#6200EE',
     accent: '#03DAC6',
-    background:'#000000', 
+    background:'#FFFFFF', 
     surface: '#FFFFFF',
     text: '#000000',
     error: '#B00020',
