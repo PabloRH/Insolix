@@ -63,6 +63,7 @@ class Profile extends React.Component {
   }
   
   render() {
+    console.log(this.context)
     return (
       <Fragment>
         <MyHeader
@@ -159,4 +160,5 @@ class Profile extends React.Component {
   }
 }
 
+Profile.contextType = Data;
 export default Profile;

@@ -10,17 +10,17 @@ import { Data } from "./Data"
 
 class App extends React.Component {
   state = {ID: "0"}
-//  data = [this.state, (...args) => {}] 
+  data = {state: this.state, setter: (...args) => this.setState(...args)}
   render () {
     return (
-  //    <Data.Provider value={this.data}>
-      <NativeRouter>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/signup" component={SignUp} />
-        <Route exact path="/SignedIn" component={SignedIn} />
-      </NativeRouter>
-    //</Data.Provider>
+      <Data.Provider value={this.data}>
+        <NativeRouter>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/login" component={Login} />
+          <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/SignedIn" component={SignedIn} />
+        </NativeRouter>
+      </Data.Provider>
   );
   }
 };
