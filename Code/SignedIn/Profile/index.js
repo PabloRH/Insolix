@@ -18,8 +18,8 @@ class Profile extends React.Component {
           return (
             <Fragment>
               <MyHeader
-                text="Usuario"
-                subtitle="tipo de usuario"
+                text="Profile"
+                subtitle={state.Type}
                 link="/"
                 hasSetting
               />
@@ -27,8 +27,8 @@ class Profile extends React.Component {
                 <ScrollView>
                   <Card style={MyStyles.margen}>
                     <Card.Title
-                      title="Nombre"
-                      subtitle="Apellido"
+                      title={state.Name}
+                      subtitle={state.User}
                       left={props => (
                         <Avatar.Image
                           size={50}
@@ -75,10 +75,9 @@ class Profile extends React.Component {
                     <Button
                       icon="send"
                       mode="outlined"
-                      onPress={() => this.setState({ blob: this.blob + 1 })}
                       style={MyStyles.btn}
                     >
-                      Sign Up {this.state.blob}
+                      Sign Up
                     </Button>
                   </View>
                 </ScrollView>
