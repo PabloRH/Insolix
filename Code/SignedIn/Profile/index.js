@@ -73,11 +73,11 @@ class Profile extends React.Component {
                     </View>
 
                     <Button
-                      icon="send"
+                      icon="refresh"
                       mode="outlined"
                       style={MyStyles.btn}
                     >
-                      Sign Up
+                      Refresh Info
                     </Button>
                   </View>
                 </ScrollView>

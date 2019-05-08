@@ -5,6 +5,9 @@ import Profile from "./Profile"
 import Gallery from "./Gallery"
 import MyWorks from "./MyWorks"
 
+import { HasToUpdate } from "./state";
+
+
 const routes = [
   { key: 'Profile', title: 'Profile', icon: 'assignment-ind' },
   { key: 'Gallery', title: 'Gallery', icon: 'collections' },
@@ -19,11 +22,13 @@ class SignedIn extends React.Component {
 
   render() {
     return (
-      <BottomNavigation
-        navigationState={this.state}
-        onIndexChange={this.handleIndexChange}
-        renderScene={Screens}
-      />
+      <HasToUpdate.Provider>
+        <BottomNavigation
+          navigationState={this.state}
+          onIndexChange={this.handleIndexChange}
+          renderScene={Screens}
+        />
+      </HasToUpdate.Provider>
     );
   }
 }

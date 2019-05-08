@@ -33,7 +33,19 @@ DROP PROCEDURE IF EXISTS Photos;
 DELIMITER //
 CREATE PROCEDURE Photos (IN _ID INT)
     BEGIN
-        SELECT Photo.HashID FROM Photo, User  
-            WHERE User.ID = _ID;
+        SELECT HashID FROM Photo  
+            WHERE UserID = _ID;
+    END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS Upload;
+DELIMITER //
+CREATE PROCEDURE Upload (IN _ID INT, IN _HASHID VARCHAR(60))
+    BEGIN
+        INSERT INTO Photo(UserID, HashID)
+            VALUES(
+                _ID,
+                _HASHID
+            );
     END //
 DELIMITER ;
