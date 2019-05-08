@@ -1,6 +1,6 @@
 import React from "react";
 
-const updater = () => {
+export const updater = () => {
   let state = false
   return {
     getState: () => state,

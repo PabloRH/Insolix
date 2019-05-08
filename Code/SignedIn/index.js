@@ -5,8 +5,10 @@ import Profile from "./Profile"
 import Gallery from "./Gallery"
 import MyWorks from "./MyWorks"
 
-import { HasToUpdate } from "./state";
+import { HasToUpdate, updater } from "./state";
 
+
+const value = updater()
 
 const routes = [
   { key: 'Profile', title: 'Profile', icon: 'assignment-ind' },
@@ -22,7 +24,7 @@ class SignedIn extends React.Component {
 
   render() {
     return (
-      <HasToUpdate.Provider>
+      <HasToUpdate.Provider value={value}>
         <BottomNavigation
           navigationState={this.state}
           onIndexChange={this.handleIndexChange}

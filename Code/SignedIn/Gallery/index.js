@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { TextInput, Avatar, Card, Button } from "react-native-paper";
-import { View, ScrollView, Image } from "react-native";
+import { View, ScrollView, Image, RefreshControl } from "react-native";
 import MyHeader from "../../Header";
 import MyStyles from "../../styles";
 
@@ -14,7 +14,7 @@ class Gallery extends React.Component {
     const Photos = Array.from({ length: 4 }).map(
       (_, i) => `https://unsplash.it/300/300/?random&__id=${this.props.route.key}${i}`
     )
-    this.state = { Photos }
+    this.state = { Photos, refreshing: false }
   }
   
   getPhotos = (id) => {
@@ -23,14 +23,15 @@ class Gallery extends React.Component {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ id })
     };
-    console.log(id)
+    console.log("Gettign photos " + id)
     fetch("http://pablorosas.pythonanywhere.com/GetPhotos", options)
       .then(res => res.json())
       .then(res => {
         if (res == null) return 
-        const myPhotos = res.map(photo => `http://pablorosas.pythonanywhere.com/static/${photo.HashID}`)
+        const newPhotos = res.filter( (photo, index, self) => self.indexOf(photo) === index)
+        const myPhotos = newPhotos.map(photo => `http://pablorosas.pythonanywhere.com/static/${photo.HashID}`)
         console.log(myPhotos)
-        this.setState({Photos: [...myPhotos, ...this.state.Photos], hasGotPhotos: true})
+        this.setState({Photos: [...myPhotos, ...this.state.Photos], refreshing: false})
       });
   }
 
@@ -41,7 +42,7 @@ class Gallery extends React.Component {
         { uploading => (
         <Data.Consumer>
           {context => {
-            console.log(uploading.getState())
+            console.log(uploading)
             if (uploading.getState()) {
               this.getPhotos(context.state.ID)
               uploading.setToFalse()
@@ -56,7 +57,15 @@ class Gallery extends React.Component {
                   hasSetting
                 />
                 <View style={{marginBottom: 85}}>
-                  <ScrollView contentContainerStyle={MyStyles.content}>
+                  <ScrollView contentContainerStyle={MyStyles.content} refreshControl={
+                    <RefreshControl refreshing={this.state.refreshing} onRefresh = {() => {
+                      if (uploading.getState()) {
+                        this.setState({refreshing: true})
+                        this.getPhotos(context.state.ID)
+                        uploading.setToFalse()
+                      }
+                    }} />
+                  }>
                     {
                       this.state.Photos.map(uri => (
                       <View key={uri} style={MyStyles.item}>
