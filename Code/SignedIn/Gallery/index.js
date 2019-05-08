@@ -1,7 +1,6 @@
 import React, { Fragment } from "react";
 import { TextInput, Avatar, Card, Button } from "react-native-paper";
-import { View, ScrollView } from "react-native";
-
+import { View, ScrollView, Image } from "react-native";
 import MyHeader from "../../Header";
 import MyStyles from "../../styles";
 
@@ -13,6 +12,10 @@ class Gallery extends React.Component {
       <Data.Consumer>
         {context => {
           const { state } = context;
+          const Photos = Array.from({ length: 24 }).map(
+            (_, i) => `https://unsplash.it/300/300/?random&__id=${this.props.route.key}${i}`
+          );
+            
           return (
             <Fragment>
               <MyHeader
@@ -36,6 +39,13 @@ class Gallery extends React.Component {
                     />
                     <Card.Content />
                   </Card>
+                  {
+                    Photos.map(uri => (
+                    <View key={uri} style={MyStyles.item}>
+                      <Image source={{ uri }} style={MyStyles.photo} />
+                    </View>
+                  ))
+                  }
                 </ScrollView>
               </View>
             </Fragment>
