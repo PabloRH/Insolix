@@ -67,7 +67,7 @@ class Login extends React.Component {
           </View>
           <Button icon="send" mode="outlined" onPress={this.sendToDB} style={MyStyle.btn}>
             Log In
-          </Button>
+          </Button>∫
 
           {
             this.state.loading && 

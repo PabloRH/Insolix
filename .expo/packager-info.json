@@ -1,4 +1,9 @@
 {
-  "packagerPort": null,
-  "packagerPid": null
+  "packagerPort": 19004,
+  "packagerPid": 13435,
+  "devToolsPort": 19003,
+  "expoServerPort": 19001,
+  "expoServerNgrokUrl": "https://qu-chj.pablorh.t2.exp.direct",
+  "packagerNgrokUrl": "https://packager.qu-chj.pablorh.t2.exp.direct",
+  "ngrokPid": 13445
 }

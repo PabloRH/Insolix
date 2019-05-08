@@ -23,13 +23,11 @@ class Home extends React.Component {
       </Card>
         <View style={MyStyles.appContainer}>
           <Text>Si ya tienes una cuenta vamos (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧</Text>
-          <Link to="/login">
-            <Button icon="person-pin-circle" mode="outlined" style={MyStyles.btn}>
+            <Button icon="person-pin-circle" mode="outlined" style={MyStyles.btn} onPress={() => this.props.history.push("login")}>
               Log In
             </Button>
-          </Link>
           <Text >¡¿Que aun no tienes una cuenta?!, ¿Que esperas? es !!!FACILISIMO¡¡¡</Text>
-          <Button icon="person-add" mode="outlined" style={MyStyles.btn}  onPress={() => this.props.history.push("signup")}>
+          <Button icon="person-add" mode="outlined" style={MyStyles.btn} onPress={() => this.props.history.push("signup")}>
             Sign Up
           </Button>
         </View>

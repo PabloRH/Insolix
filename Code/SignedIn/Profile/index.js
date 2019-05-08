@@ -79,7 +79,7 @@ class Profile extends React.Component {
                 subtitle="Apellido"
                 left={props => (
                   <Avatar.Image
-                    size={12}
+                    size={50}
                     source={require("../../../assets/avatar.png")}
                   />
                 )}
@@ -139,20 +139,6 @@ class Profile extends React.Component {
                   value={this.state.email}
                   onChange={e => {
                     this.setState({ email: e.nativeEvent.text });
-                  }}
-                />
-              </View>
-
-              <View style={MyStyles.sideIcon}>
-                <Icon name="star" />
-                <TextInput
-                  label="Tipo de usuario"
-                  mode="outlined"
-                  style={MyStyles.input}
-                 disabled
-                  value={this.state.types}
-                  onChange={e => {
-                    this.setState({ types: e.nativeEvent.text });
                   }}
                 />
               </View>
