@@ -27,3 +27,13 @@ CREATE PROCEDURE SignUp (IN _name VARCHAR(25), IN _user VARCHAR(25), IN _email V
                 Password = _password;
     END //
 DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS Photos;
+DELIMITER //
+CREATE PROCEDURE Photos (IN _ID INT)
+    BEGIN
+        SELECT Photo.HashID FROM Photo, User  
+            WHERE User.ID = _ID;
+    END //
+DELIMITER ;

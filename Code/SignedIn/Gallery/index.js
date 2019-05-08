@@ -5,17 +5,41 @@ import MyHeader from "../../Header";
 import MyStyles from "../../styles";
 
 import { Icon } from "native-base";
+import { Data } from "../../App/Data";
 
 class Gallery extends React.Component {
+  constructor(props) {
+    super(props)
+    const Photos = Array.from({ length: 24 }).map(
+      (_, i) => `https://unsplash.it/300/300/?random&__id=${this.props.route.key}${i}`
+    )
+    this.state = { Photos, hasGotPhotos: false }
+  }
+  
+  getPhotos = (id) => {
+    if (this.state.hasGotPhotos) return
+    const options = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ id })
+    };
+
+    fetch("http://pablorosas.pythonanywhere.com/GetPhotos", options)
+      .then(res => res.json())
+      .then(res => {
+        if (res == null) return 
+        const myPhotos = res.map(photo => `http://pablorosas.pythonanywhere.com/static/${photo.HashID}`)
+        this.setState({Photos: [...myPhotos, ...this.state.Photos], hasGotPhotos: true})
+      });
+  }
+
   render() {
+    console.log(this.state.Photos)
     return (
       <Data.Consumer>
         {context => {
+          this.getPhotos(context.state.ID)
           const { state } = context;
-          const Photos = Array.from({ length: 24 }).map(
-            (_, i) => `https://unsplash.it/300/300/?random&__id=${this.props.route.key}${i}`
-          );
-            
           return (
             <Fragment>
               <MyHeader
@@ -24,23 +48,10 @@ class Gallery extends React.Component {
                 link="/"
                 hasSetting
               />
-              <View style={MyStyles.appContainer}>
-                <ScrollView>
-                  <Card style={MyStyles.margen}>
-                    <Card.Title
-                      title={state.Name}
-                      subtitle={state.User}
-                      left={props => (
-                        <Avatar.Image
-                          size={50}
-                          source={require("../../../assets/avatar.png")}
-                        />
-                      )}
-                    />
-                    <Card.Content />
-                  </Card>
+              <View style={{marginBottom: 85}}>
+                <ScrollView contentContainerStyle={MyStyles.content}>
                   {
-                    Photos.map(uri => (
+                    this.state.Photos.map(uri => (
                     <View key={uri} style={MyStyles.item}>
                       <Image source={{ uri }} style={MyStyles.photo} />
                     </View>

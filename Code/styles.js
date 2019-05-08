@@ -49,6 +49,11 @@ const styles = StyleSheet.create({
       flex: 1,
       resizeMode: 'cover',
     },
+    content:{ 
+      flexDirection: 'row',
+      flexWrap: 'wrap',
+      padding: 4,
+    }
   });
 
 export default styles
