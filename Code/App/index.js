@@ -10,10 +10,14 @@ import { Data } from "./Data"
 
 class App extends React.Component {
   state = {ID: "0"}
-  data = {state: this.state, setter: (...args) => this.setState(...args)}
   render () {
+    const value = {state: this.state, setter: (nextState) => {
+      console.log("App")
+      this.setState(nextState)
+    }}
+
     return (
-      <Data.Provider value={this.data}>
+      <Data.Provider value={value}>
         <NativeRouter>
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />

@@ -2,7 +2,7 @@ import React from 'react';
 import { BottomNavigation, Text } from 'react-native-paper';
 
 import Profile from "./Profile"
-const Gallery = () => <Text>"Gallery"</Text>
+import Gallery from "./Gallery"
 const MyWorks = () => <Text>"MyWorks"</Text>
 
 const routes = [

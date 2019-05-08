@@ -5,160 +5,90 @@ import { View, ScrollView } from "react-native";
 import MyHeader from "../../Header";
 import MyStyles from "../../styles";
 
-import { Icon } from 'native-base';
+import { Icon } from "native-base";
 
 import { Data } from "../../App/Data";
 
 class Profile extends React.Component {
-  state = {
-    name: "osvar",
-    password: "",
-    email: "",
-    user: "",
-    types: "",
-    loading: false
-  }
-
-  sendToDB = () => {
-    if (this.state.loading) return;
-    const data = {
-      name: this.state.name,
-      password: this.state.password,
-      user: this.state.user,
-      email: this.state.email,
-      types: this.state.types
-    };
-    
-    const options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    };
-    fetch("http://pablorosas.pythonanywhere.com/SignUp", options)
-      .then(res => res.json())
-      .then(res => {
-        if (res.ID == null)
-          Alert.alert(
-            "¡Oh ha ocurrido un error!",
-            "El servido no parece Servir\n",
-            [
-              {
-                text: "Σ(▼ □ ▼メ)",
-                onPress: () => this.props.history.push("/")
-              }
-            ]
-          );
-        else
-          Alert.alert("¡Bienvenido a DERBILD!", "Por Favor Inicia Sesion.\n", [
-            {
-              text: "¡¡ Vamos ♡＼(￣▽￣)／♡ !!",
-              onChange: () => this.props.history.push("/Login")
-            }
-          ]);
-      })
-      .then(data => {
-        this.setState({ loading: false });
-      });
-    this.setState({ loading: true });
-  }
-  
   render() {
-    console.log(this.context+"asd")
     return (
-      <Fragment>
-        <MyHeader
-          text="Usuario"
-          subtitle="tipo de usuario"
-          link="/"
-          hasSetting
-        />
-        <View style={MyStyles.appContainer}>
-          <ScrollView>
-            <Card style={MyStyles.margen}>
-              <Card.Title
-                title="Nombre"
-                subtitle="Apellido"
-                left={props => (
-                  <Avatar.Image
-                    size={50}
-                    source={require("../../../assets/avatar.png")}
-                  />
-                )}
+      <Data.Consumer>
+        {context => {
+          const { state } = context
+          return (
+            <Fragment>
+              <MyHeader
+                text="Profile"
+                subtitle={state.Type}
+                link="/"
+                hasSetting
               />
-              <Card.Content />
-            </Card>
-            <View style={MyStyles.appContainer}>
-              <View style={MyStyles.sideIcon}>
-                <Icon name="person" />
-                <TextInput
-                  label="Name"
-                  mode="outlined"
-                  style={MyStyles.input}
-                  disabled={true}
-                  value={this.state.name}
-                  onChange={e => {
-                    this.setState({ name: e.nativeEvent.text });
-                  }}
-                />
-              </View>
+              <View style={MyStyles.appContainer}>
+                <ScrollView>
+                  <Card style={MyStyles.margen}>
+                    <Card.Title
+                      title={state.Name}
+                      subtitle={state.User}
+                      left={props => (
+                        <Avatar.Image
+                          size={50}
+                          source={require("../../../assets/avatar.png")}
+                        />
+                      )}
+                    />
+                    <Card.Content />
+                  </Card>
+                  <View style={MyStyles.appContainer}>
+                    <View style={MyStyles.sideIcon}>
+                      <Icon name="person" />
+                      <TextInput
+                        label="Name"
+                        mode="outlined"
+                        style={MyStyles.input}
+                        disabled
+                        value={state.Name}
+                      />
+                    </View>
 
-              <View style={MyStyles.sideIcon}>
-                <Icon name="person" />
-                <TextInput
-                  label="User"
-                  mode="outlined"
-                  style={MyStyles.input}
-                  disabled
-                  value={this.state.user}
-                  onChange={e => {
-                    this.setState({ user: e.nativeEvent.text });
-                  }}
-                />
-              </View>
+                    <View style={MyStyles.sideIcon}>
+                      <Icon name="person" />
+                      <TextInput
+                        label="User"
+                        mode="outlined"
+                        style={MyStyles.input}
+                        disabled
+                        value={state.User}
+                      />
+                    </View>
 
-              <View style={MyStyles.sideIcon}>
-                <Icon name="lock" />
-                <TextInput
-                  label="Password"
-                  mode="outlined"
-                  style={MyStyles.input}
-                 disabled
-                  value={this.state.password}
-                  onChange={e => {
-                    this.setState({ password: e.nativeEvent.text });
-                  }}
-                />
-              </View>
+                    <View style={MyStyles.sideIcon}>
+                      <Icon name="mail" />
+                      <TextInput
+                        label="E-mail"
+                        mode="outlined"
+                        style={MyStyles.input}
+                        disabled
+                        value={state.Email}
+                      />
+                    </View>
 
-              <View style={MyStyles.sideIcon}>
-                <Icon name="mail" />
-                <TextInput
-                  label="E-mail"
-                  mode="outlined"
-                  style={MyStyles.input}
-                 disabled
-                  value={this.state.email}
-                  onChange={e => {
-                    this.setState({ email: e.nativeEvent.text });
-                  }}
-                />
+                    <Button
+                      icon="send"
+                      mode="outlined"
+                      style={MyStyles.btn}
+                    >
+                      Sign Up
+                    </Button>
+                  </View>
+                </ScrollView>
               </View>
-
-              <Button
-                icon="send"
-                mode="outlined"
-                onPress={this.sendToDB}
-                style={MyStyles.btn}
-              >
-                Sign Up
-              </Button>
-            </View>
-          </ScrollView>
-        </View>
-      </Fragment>
+            </Fragment>
+          );
+        }}
+      </Data.Consumer>
     );
   }
 }
 
-Profile.contextType = Data;
 export default Profile;
+

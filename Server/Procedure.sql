@@ -2,7 +2,7 @@ DROP PROCEDURE IF EXISTS LogIn;
 DELIMITER //
 CREATE PROCEDURE LogIn (IN _user VARCHAR(25), IN _password VARCHAR(25))
     BEGIN
-        SELECT ID FROM User 
+        SELECT * FROM User 
             WHERE 
                 User = _user AND 
                 Password = _password;
