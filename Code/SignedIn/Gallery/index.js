@@ -27,9 +27,9 @@ class Gallery extends React.Component {
     fetch("http://pablorosas.pythonanywhere.com/GetPhotos", options)
       .then(res => res.json())
       .then(res => {
-        if (res.ID == null) return 
+        if (res == null) return 
         const myPhotos = res.map(photo => `http://pablorosas.pythonanywhere.com/static/${photo.HashID}`)
-        this.setState({Photos: [...this.state.Photos, ...myPhotos], hasGotPhotos: true})
+        this.setState({Photos: [...myPhotos, ...this.state.Photos], hasGotPhotos: true})
       });
   }
 
@@ -48,10 +48,10 @@ class Gallery extends React.Component {
                 link="/"
                 hasSetting
               />
-              <View>
+              <View style={{marginBottom: 85}}>
                 <ScrollView contentContainerStyle={MyStyles.content}>
                   {
-                    Photos.map(uri => (
+                    this.state.Photos.map(uri => (
                     <View key={uri} style={MyStyles.item}>
                       <Image source={{ uri }} style={MyStyles.photo} />
                     </View>
