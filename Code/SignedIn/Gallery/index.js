@@ -1,12 +1,8 @@
 import React, { Fragment } from "react";
 import { TextInput, Avatar, Card, Button } from "react-native-paper";
-import { View, ScrollView } from "react-native";
-
+import { View, ScrollView, Image } from "react-native";
 import MyHeader from "../../Header";
 import MyStyles from "../../styles";
-
-
-
 
 import { Icon } from "native-base";
 
