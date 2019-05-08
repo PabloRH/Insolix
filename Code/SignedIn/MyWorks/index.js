@@ -1,7 +1,7 @@
 import React, { Fragment } from "react";
-import { Text, Button } from "react-native-paper";
+import { Text, Button} from "react-native-paper";
 import { ImagePicker } from 'expo';
-import { View } from "react-native";
+import { View, Alert } from "react-native";
 
 import MyHeader from "../../Header";
 import MyStyles from "../../styles";
@@ -35,15 +35,18 @@ const MyWorks = () => {
                   let type = match ? `image/${match[1]}` : `image`
 
                   let formData = new FormData()
-                  formData.append('photo', { uri: localUri, name: filename, type })
+                  formData.append('photo', { uri: localUri, name: filename + " " + state.ID, type })
 
-                  return await fetch('http://pablorosas.pythonanywhere.com/upload_file', {
+                  const serverResponse = await fetch('http://pablorosas.pythonanywhere.com/upload_file', {
                     method: 'POST',
                     body: formData,
                     header: {
                       'content-type': 'multipart/form-data',
                     },
                   })
+                  
+                  if (serverResponse.ok) Alert.alert("Imagen subida con exito")
+                  console.log(serverResponse)
                  
                 }}>
                 Hi
