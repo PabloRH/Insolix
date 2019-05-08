@@ -60,14 +60,16 @@ class Login extends React.Component {
             <Icon name="lock" />
             <TextInput 
               {...textProps} 
-              label = 'Password' 
+              label = 'Password'
+              secureTextEntry
+              password 
               value = {this.state.password} 
               onChange = {e => this.setState({password: e.nativeEvent.text})}
             />
           </View>
           <Button icon="send" mode="outlined" onPress={this.sendToDB} style={MyStyle.btn}>
             Log In
-          </Button>∫
+          </Button>
 
           {
             this.state.loading && 
