@@ -1,10 +1,10 @@
 {
-  "packagerPort": 19004,
-  "packagerPid": 16111,
+  "packagerPort": null,
+  "packagerPid": null,
   "devToolsPort": 19003,
-  "expoServerPort": 19001,
-  "expoServerNgrokUrl": "https://qu-chj.pablorh.t2.exp.direct",
-  "packagerNgrokUrl": "https://packager.qu-chj.pablorh.t2.exp.direct",
-  "ngrokPid": 16133,
+  "expoServerPort": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "webpackServerPort": null
 }
