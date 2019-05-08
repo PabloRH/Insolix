@@ -12,7 +12,6 @@ class App extends React.Component {
   state = {ID: "0"}
   render () {
     const value = {state: this.state, setter: (nextState) => {
-      console.log("App")
       this.setState(nextState)
     }}
 

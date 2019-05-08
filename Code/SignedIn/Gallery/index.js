@@ -5,6 +5,7 @@ import MyHeader from "../../Header";
 import MyStyles from "../../styles";
 
 import { Icon } from "native-base";
+import { Data } from "../../App/Data";
 
 class Gallery extends React.Component {
   render() {
@@ -24,21 +25,8 @@ class Gallery extends React.Component {
                 link="/"
                 hasSetting
               />
-              <View style={MyStyles.appContainer}>
+              <View>
                 <ScrollView>
-                  <Card style={MyStyles.margen}>
-                    <Card.Title
-                      title={state.Name}
-                      subtitle={state.User}
-                      left={props => (
-                        <Avatar.Image
-                          size={50}
-                          source={require("../../../assets/avatar.png")}
-                        />
-                      )}
-                    />
-                    <Card.Content />
-                  </Card>
                   {
                     Photos.map(uri => (
                     <View key={uri} style={MyStyles.item}>
