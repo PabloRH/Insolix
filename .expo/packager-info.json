@@ -1,18 +1,9 @@
 {
-  "packagerPort": null,
-  "packagerPid": null,
-<<<<<<< HEAD
   "devToolsPort": 19002,
-  "expoServerPort": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
-=======
-  "devToolsPort": 19003,
-  "expoServerPort": 19001,
-  "expoServerNgrokUrl": "https://qu-chj.pablorh.t2.exp.direct",
-  "packagerNgrokUrl": "https://packager.qu-chj.pablorh.t2.exp.direct",
-  "ngrokPid": 15315,
-  "webpackServerPort": null
->>>>>>> 929b76b27b65dcef95c46717e1b837be9dcefcf4
+  "expoServerPort": 19000,
+  "packagerPort": 19003,
+  "packagerPid": 88155,
+  "expoServerNgrokUrl": "https://qu-chj.anonymous.t2.exp.direct",
+  "packagerNgrokUrl": "https://packager.qu-chj.anonymous.t2.exp.direct",
+  "ngrokPid": 88179
 }

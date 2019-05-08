@@ -39,7 +39,16 @@ const styles = StyleSheet.create({
       marginBottom: 20,
       marginLeft: 20,
       marginRight: 20
-    }
+    },
+    item: {
+      height: Dimensions.get('window').width / 2,
+      width: '50%',
+      padding: 4,
+    },
+    photo: {
+      flex: 1,
+      resizeMode: 'cover',
+    },
   });
 
 export default styles
