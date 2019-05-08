@@ -29,7 +29,10 @@ class Login extends React.Component {
           [{text: '¿Quieres Regitarte?', onPress: () => this.props.history.push("/SignUp")}])
           this.setState({loading: false})
 
-        } else this.props.history.push("/SignedIn")
+        } else{
+          console.log(res)
+          this.props.history.push("/SignedIn")
+        }  
         })
     
     this.setState({loading: true})
