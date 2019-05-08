@@ -1,6 +1,6 @@
 import React, { Fragment } from "react";
 import { Text, Button } from "react-native-paper";
-import ImagePicker from 'react-native-image-picker';
+import { ImagePicker } from 'expo';
 import { View } from "react-native";
 
 import MyHeader from "../../Header";
@@ -21,31 +21,30 @@ const MyWorks = () => {
                 hasSetting
               />
               <View style={{marginBottom: 85, marginTop: 85}}>
-                <Button onPress={() => {
+                <Button onPress={async () => {
 
-                  const options = {
-                    title: 'Select Avatar',
-                    customButtons: [{ name: 'fb', title: 'Choose Photo from Facebook' }],
-                    storageOptions: {
-                      skipBackup: true,
-                      path: 'images',
+                  const result = await ImagePicker.launchImageLibraryAsync()
+                  console.log(result)
+
+                  if (result.cancelled) return
+
+                  let localUri = result.uri
+                  let filename = localUri.split('/').pop()
+
+                  let match = /\.(\w+)$/.exec(filename)
+                  let type = match ? `image/${match[1]}` : `image`
+
+                  let formData = new FormData()
+                  formData.append('photo', { uri: localUri, name: filename, type })
+
+                  return await fetch('http://pablorosas.pythonanywhere.com/upload_file', {
+                    method: 'POST',
+                    body: formData,
+                    header: {
+                      'content-type': 'multipart/form-data',
                     },
-                  };
-                  
-                  ImagePicker.showImagePicker(options, (response) => {
-                    console.log('Response = ', response);
-                  
-                    if (response.didCancel) {
-                      console.log('User cancelled image picker');
-                    } else if (response.error) {
-                      console.log('ImagePicker Error: ', response.error);
-                    } else if (response.customButton) {
-                      console.log('User tapped custom button: ', response.customButton);
-                    } else {
-                      const source = { uri: response.uri };
-                      console.log(source)
-                    }
-                  });
+                  })
+                 
                 }}>
                 Hi
                 </Button>
