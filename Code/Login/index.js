@@ -15,7 +15,6 @@ import UserDataContext from "../App/UserDataContext";
 
 class Login extends React.Component {
   state = { user: "", password: "", loading: false };
-  static contextType = Data;
   sendToDB = setter => {
     if (this.state.loading) return;
     const data = { user: this.state.user, password: this.state.password };

@@ -1,12 +1,11 @@
-import React from 'react';
-import { BottomNavigation, Text } from 'react-native-paper';
+import React from 'react'
+import { BottomNavigation, Text } from 'react-native-paper'
 
-import Profile from "./Profile"
-import Gallery from "./Gallery"
-import MyWorks from "./MyWorks"
+import Profile from './Profile'
+import Gallery from './Gallery'
+import MyWorks from './MyWorks'
 
-import { HasToUpdate, updater } from "./state";
-
+import { HasToUpdate, updater } from './state'
 
 const value = updater()
 
@@ -16,11 +15,11 @@ const routes = [
   { key: 'MyWorks', title: 'My Works', icon: 'camera-enhance' },
 ]
 
-const Screens = BottomNavigation.SceneMap({ Profile, Gallery, MyWorks });
+const Screens = BottomNavigation.SceneMap({ Profile, Gallery, MyWorks })
 
 class SignedIn extends React.Component {
-  state = { index: 0, routes};
-  handleIndexChange = index => this.setState({ index });
+  state = { index: 0, routes }
+  handleIndexChange = index => this.setState({ index })
 
   render() {
     return (
@@ -31,8 +30,8 @@ class SignedIn extends React.Component {
           renderScene={Screens}
         />
       </HasToUpdate.Provider>
-    );
+    )
   }
 }
 
-export default SignedIn 
+export default SignedIn
