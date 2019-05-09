@@ -1,12 +1,9 @@
 import React, { Fragment } from 'react'
+import { View, Alert, Picker } from 'react-native'
 import { withRouter } from 'react-router-native'
-import {
-  Button,
-  TextInput,
-  ActivityIndicator,
-  Colors,
-} from 'react-native-paper'
-import { View, Alert } from 'react-native'
+
+import { Button, TextInput } from 'react-native-paper'
+import { ActivityIndicator, Colors } from 'react-native-paper'
 import { Icon } from 'native-base'
 
 import MyHeader from './Header'
@@ -67,7 +64,7 @@ class Profile extends React.Component {
     return (
       <Fragment>
         <MyHeader text="Derbild" subtitle="Sign In" link="/" hasAnArrow />
-        <View style={MyStyles.bottomView}>
+        <View style={MyStyles.appContainer}>
           <View style={MyStyles.sideIcon}>
             <Icon name="person" />
             <TextInput
@@ -126,18 +123,18 @@ class Profile extends React.Component {
 
           <View style={MyStyles.sideIcon}>
             <Icon name="star" />
-            <TextInput
-              label="Tipo de usuario"
-              mode="outlined"
+            <Picker
               style={MyStyles.input}
-              theme={{ colors: { text: 'black' } }}
-              value={this.state.types}
-              onChange={e => {
-                this.setState({ types: e.nativeEvent.text })
-              }}
-            />
+              selectedValue={this.state.types}
+              onValueChange={itemValue => this.setState({ types: itemValue })}
+            >
+              <Picker.Item label="Usuario" value="Usuario" />
+              <Picker.Item label="Administrador" value="Administrador" />
+              <Picker.Item label="Fotografo" value="Fotografo" />
+              <Picker.Item label="Editor" value="Editor" />
+              <Picker.Item label="'Ing. Soporte" value="'Ing. Soporte" />
+            </Picker>
           </View>
-
           <Button
             icon="send"
             mode="outlined"
