@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react'
+import React from 'react'
 import { withRouter } from 'react-router-native'
 import { Alert } from 'react-native'
 

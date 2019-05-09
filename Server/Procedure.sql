@@ -63,15 +63,10 @@ DELIMITER ;
 
 DROP PROCEDURE IF EXISTS MoreInf;
 DELIMITER //
-CREATE PROCEDURE MoreInf (IN _age INT, IN _gender VARCHAR(60), IN _residence VARCHAR(15), IN _profesion VARCHAR(20), IN _descrip VARCHAR(256))
+CREATE PROCEDURE MoreInf (IN _ID INT, IN _age INT, IN _gender VARCHAR(60), IN _residence VARCHAR(15), IN _profesion VARCHAR(20), IN _descrip VARCHAR(256))
     BEGIN
-        INSERT INTO User(Age, Residence, Gender, Profesion, Descrip) 
-            VALUES(
-                _age,
-                _gender,
-                _residence,
-                _profesion,
-                _descrip
-            );
+        UPDATE User
+            SET Age=_age, Residence=_residence, Gender=_gender, Profesion=_profesion, Descrip=_descrip
+            WHERE ID = _ID;
     END //
 DELIMITER ;
