@@ -129,10 +129,7 @@ class Profile extends React.Component {
               onValueChange={itemValue => this.setState({ types: itemValue })}
             >
               <Picker.Item label="Usuario" value="Usuario" />
-              <Picker.Item label="Administrador" value="Administrador" />
               <Picker.Item label="Fotografo" value="Fotografo" />
-              <Picker.Item label="Editor" value="Editor" />
-              <Picker.Item label="'Ing. Soporte" value="'Ing. Soporte" />
             </Picker>
           </View>
           <Button

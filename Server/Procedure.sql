@@ -60,3 +60,18 @@ CREATE PROCEDURE OtherPhotos (IN _ID INT)
         
     END //
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS MoreInf;
+DELIMITER //
+CREATE PROCEDURE MoreInf (IN _age INT, IN _gender VARCHAR(60), IN _residence VARCHAR(15), IN _profesion VARCHAR(20), IN _descrip VARCHAR(256))
+    BEGIN
+        INSERT INTO User(Age, Residence, Gender, Profesion, Descrip) 
+            VALUES(
+                _age,
+                _gender,
+                _residence,
+                _profesion,
+                _descrip
+            );
+    END //
+DELIMITER ;
