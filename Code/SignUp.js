@@ -1,12 +1,11 @@
 import React, { Fragment } from 'react'
-import { withRouter } from 'react-router-native'
-import {
-  Button,
-  TextInput,
-  ActivityIndicator,
-  Colors,
-} from 'react-native-paper'
 import { View, Alert } from 'react-native'
+
+import { Button, TextInput } from 'react-native-paper'
+import { ActivityIndicator, Colors } from 'react-native-paper'
+
+import { withRouter } from 'react-router-native'
+
 import { Icon } from 'native-base'
 
 import MyHeader from './Header'
@@ -24,6 +23,9 @@ class Profile extends React.Component {
 
   sendToDB = () => {
     if (this.state.loading) return
+
+    this.setState({ loading: true })
+
     const data = {
       name: this.state.name,
       password: this.state.password,
@@ -37,9 +39,14 @@ class Profile extends React.Component {
       body: JSON.stringify(data),
     }
     fetch('http://pablorosas.pythonanywhere.com/SignUp', options)
-      .then(res => res.json())
-      .then(res => {
-        if (res.ID == null)
+      .then(response => {
+        this.setState({ loading: false })
+
+        if (response.ok) return response.json()
+        else alert('Algo fue mal con el servidor')
+      })
+      .then(data => {
+        if (data == null)
           Alert.alert(
             '¡Oh ha ocurrido un error!',
             'El servido no parece Servir\n',
@@ -54,15 +61,12 @@ class Profile extends React.Component {
           Alert.alert('¡Bienvenido a DERBILD!', 'Por Favor Inicia Sesion.\n', [
             {
               text: '¡¡ Vamos ♡＼(￣▽￣)／♡ !!',
-              onChange: () => this.props.history.push('/Login'),
+              onChange: () => this.props.history.push('/logIn'),
             },
           ])
       })
-      .then(data => {
-        this.setState({ loading: false })
-      })
-    this.setState({ loading: true })
   }
+
   render() {
     return (
       <Fragment>
@@ -146,6 +150,7 @@ class Profile extends React.Component {
           >
             Sign Up
           </Button>
+
           {this.state.loading && (
             <ActivityIndicator
               animating={true}
