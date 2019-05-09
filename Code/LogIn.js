@@ -32,8 +32,6 @@ class Login extends React.Component {
       .then(response => {
         this.setState({ loading: false })
 
-        console.log({response})
-
         if (response.ok) return response.json()
         else alert('Algo fue mal con el servidor')
       })
