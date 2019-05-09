@@ -15,8 +15,8 @@ class App extends React.Component {
     return (
       <UserDataContext.Provider
         value={{
-          state: this.state,
-          setter: nextState => {
+          data: this.state,
+          setData: nextState => {
             this.setState(nextState)
           },
         }}
@@ -25,7 +25,7 @@ class App extends React.Component {
           <Route exact path="/" component={Home} />
           <Route exact path="/logIn" component={Login} />
           <Route exact path="/signUp" component={SignUp} />
-          <Route exact path="/SignedIn" component={SignedIn} />
+          <Route exact path="/signedIn" component={SignedIn} />
         </NativeRouter>
       </UserDataContext.Provider>
     )

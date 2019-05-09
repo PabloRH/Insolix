@@ -1,51 +1,57 @@
 import React, { Fragment } from 'react'
-import { withRouter } from 'react-router-native'
-import {
-  Button,
-  TextInput,
-  ActivityIndicator,
-  Colors,
-} from 'react-native-paper'
 import { View, Alert } from 'react-native'
+
+import { Button, TextInput } from 'react-native-paper'
+import { ActivityIndicator, Colors } from 'react-native-paper'
+import { withRouter } from 'react-router-native'
+
+import { Icon } from 'native-base'
 
 import MyHeader from './Header'
 import MyStyle from './Styles'
-import { Icon } from 'native-base'
+
 import UserDataContext from './App/UserDataContext'
 
 class Login extends React.Component {
   state = { user: '', password: '', loading: false }
-  sendToDB = setter => {
+  sendToDB = updateUserData => {
     if (this.state.loading) return
-    const data = { user: this.state.user, password: this.state.password }
+
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        user: this.state.user,
+        password: this.state.password,
+      }),
     }
 
+    this.setState({ loading: true })
+
     fetch('http://pablorosas.pythonanywhere.com/logIn', options)
-      .then(res => res.json())
-      .then(res => {
-        if (res.ID == null) {
+      .then(response => {
+        this.setState({ loading: false })
+
+        if (response.ok) return response.json()
+        else alert('Algo fue mal con el servidor')
+      })
+      .then(data => {
+        if (data == null || data.ID == null) {
           Alert.alert(
             '¡Oh ha ocurrido un error!',
             'No existe este Usuario\nΣ(▼ □ ▼メ)',
             [
               {
-                text: '¿Quieres Regitarte?',
-                onPress: () => this.props.history.push('/SignUp'),
+                text: '¿Quieres Registrarte?',
+                onPress: () => this.props.history.push('/signUp'),
               },
             ],
           )
-          this.setState({ loading: false })
         } else {
-          this.props.history.push('/SignedIn')
-          setter(res)
+          this.props.history.push('/signedIn')
+          updateUserData(data)
         }
       })
-
-    this.setState({ loading: true })
   }
 
   render() {
@@ -59,6 +65,7 @@ class Login extends React.Component {
       <Fragment>
         <MyHeader text="Derbild" subtitle="Log In" link="/" hasAnArrow />
         <View style={MyStyle.appContainer}>
+        
           <View style={MyStyle.sideIcon}>
             <Icon name="person" />
             <TextInput
@@ -68,6 +75,7 @@ class Login extends React.Component {
               onChange={e => this.setState({ user: e.nativeEvent.text })}
             />
           </View>
+          
           <View style={MyStyle.sideIcon}>
             <Icon name="lock" />
             <TextInput
@@ -79,21 +87,20 @@ class Login extends React.Component {
               onChange={e => this.setState({ password: e.nativeEvent.text })}
             />
           </View>
+
           <UserDataContext.Consumer>
-            {context => {
-              const { setter } = context
-              return (
-                <Button
-                  icon="send"
-                  mode="outlined"
-                  onPress={() => this.sendToDB(setter)}
-                  style={MyStyle.btn}
-                >
-                  Log In
-                </Button>
-              )
-            }}
+            {userData => (
+              <Button
+                icon="send"
+                mode="outlined"
+                onPress={() => this.sendToDB(userData.setData)}
+                style={MyStyle.btn}
+              >
+                Log In
+              </Button>
+            )}
           </UserDataContext.Consumer>
+
           {this.state.loading && (
             <ActivityIndicator
               animating={true}

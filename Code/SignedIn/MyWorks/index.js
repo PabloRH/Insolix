@@ -13,7 +13,7 @@ const MyWorks = () => {
       { uploading => (
       <UserDataContext.Consumer>
           {context => {
-            const { state } = context;
+            const { data } = context;
             return (
               <Fragment>
                 <MyHeader
@@ -34,7 +34,7 @@ const MyWorks = () => {
                     let type = match ? `image/${match[1]}` : `image`
 
                     let formData = new FormData()
-                    formData.append('photo', { uri: localUri, name: state.ID + " " + filename, type })
+                    formData.append('photo', { uri: localUri, name: data.ID + " " + filename, type })
 
                     const serverResponse = await fetch('http://pablorosas.pythonanywhere.com/upload_file', {
                       method: 'POST',

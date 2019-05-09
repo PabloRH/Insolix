@@ -14,14 +14,14 @@ class Profile extends React.Component {
     return (
       <UserDataContext.Consumer>
         {context => {
-          const { state } = context
+          const { data } = context
           console.log('Profile')
-          console.log(state)
+          console.log(data)
           return (
             <Fragment>
               <MyHeader
                 text="Profile"
-                subtitle={state.Type}
+                subtitle={data.Type}
                 link="/"
                 hasSetting
               />
@@ -29,8 +29,8 @@ class Profile extends React.Component {
                 <ScrollView>
                   <Card style={MyStyles.margen}>
                     <Card.Title
-                      title={state.Name}
-                      subtitle={state.User}
+                      title={data.Name}
+                      subtitle={data.User}
                       left={props => (
                         <Avatar.Image
                           size={50}
@@ -48,7 +48,7 @@ class Profile extends React.Component {
                         mode="outlined"
                         style={MyStyles.input}
                         disabled
-                        value={state.Name}
+                        value={data.Name}
                       />
                     </View>
 
@@ -59,7 +59,7 @@ class Profile extends React.Component {
                         mode="outlined"
                         style={MyStyles.input}
                         disabled
-                        value={state.User}
+                        value={data.User}
                       />
                     </View>
 
@@ -70,7 +70,7 @@ class Profile extends React.Component {
                         mode="outlined"
                         style={MyStyles.input}
                         disabled
-                        value={state.Email}
+                        value={data.Email}
                       />
                     </View>
 

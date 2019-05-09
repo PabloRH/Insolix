@@ -53,12 +53,12 @@ class Gallery extends React.Component {
                 this.getPhotos(context.state.ID);
                 uploading.setToFalse();
               }
-              const { state } = context;
+              const { data } = context;
               return (
                 <Fragment>
                   <MyHeader
                     text="Gallery"
-                    subtitle={state.Type}
+                    subtitle={data.Type}
                     link="/"
                     hasSetting
                   />
@@ -71,7 +71,7 @@ class Gallery extends React.Component {
                           onRefresh={() => {
                             if (uploading.getState()) {
                               this.setState({ refreshing: true });
-                              this.getPhotos(context.state.ID);
+                              this.getPhotos(data.ID);
                               uploading.setToFalse();
                             }
                           }}

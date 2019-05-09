@@ -7,7 +7,7 @@ import { withRouter } from 'react-router-native'
 import MyHeader from './Header'
 import MyStyles from './Styles'
 
-const Home = () => {
+const Home = props => {
   return (
     <Fragment>
       <MyHeader text="Derbild" subtitle="Welcome" />
