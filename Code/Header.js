@@ -1,6 +1,6 @@
-import React from 'react'
+import React,{ Fragment }from 'react'
 import { withRouter } from 'react-router-native'
-import { Appbar } from 'react-native-paper'
+import { Appbar, Menu } from 'react-native-paper'
 
 const MyHeader = props => {
   const onPressBack = () => props.history.push(props.link)
@@ -9,7 +9,11 @@ const MyHeader = props => {
       {props.hasAnArrow && <Appbar.BackAction onPress={onPressBack} />}
       <Appbar.Content title={props.text} subtitle={props.subtitle} />
       {props.hasSetting && (
-        <Appbar.Action icon="more-vert" onPress={onPressBack} />
+        <Fragment>
+        <Menu><Appbar.Action icon="more-vert" onPress={this._openMenu} /></Menu>
+        <Menu.Item onPress={() => {}} title="Item 1" />
+        <Menu.Item onPress={() => {}} title="Item 2" />
+        </Fragment>
       )}
     </Appbar.Header>
   )
