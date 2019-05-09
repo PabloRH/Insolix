@@ -1,12 +1,13 @@
 import React from 'react'
-import { BottomNavigation } from 'react-native-paper'
+import { BottomNavigation, Text } from 'react-native-paper'
 
 import Profile from './Profile'
 import Gallery from './Gallery'
 import MyWorks from './MyWorks'
 
-import { LoaderStateContext, createLoaderState } from './LoaderContext'
-const loaderState = createLoaderState(true)
+import { HasToUpdate, updater } from './state'
+
+const value = updater()
 
 const routes = [
   { key: 'Profile', title: 'Profile', icon: 'assignment-ind' },
@@ -16,22 +17,21 @@ const routes = [
 
 const Screens = BottomNavigation.SceneMap({ Profile, Gallery, MyWorks })
 
-class SignedInScreens extends React.Component {
+class SignedIn extends React.Component {
   state = { index: 0, routes }
   handleIndexChange = index => this.setState({ index })
 
   render() {
     return (
-      <LoaderStateContext.Provider value={loaderState}>
+      <HasToUpdate.Provider value={value}>
         <BottomNavigation
-          shifting
           navigationState={this.state}
           onIndexChange={this.handleIndexChange}
           renderScene={Screens}
         />
-      </LoaderStateContext.Provider>
+      </HasToUpdate.Provider>
     )
   }
 }
 
-export default SignedInScreens
+export default SignedIn
