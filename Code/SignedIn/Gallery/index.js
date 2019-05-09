@@ -14,7 +14,21 @@ const defaultImages = Array.from({ length: 4 }).map((_, i) => defaultURL + i)
 class Gallery extends React.Component {
   state = { Photos: defaultImages, refreshing: false }
 
+  uploadImages() {
+    if (this.props.loaderState.hasToLoadImages() == false) return
+
+    this.setState({ refreshing: true })
+    this.getPhotos(this.props.userData.ID)
+    this.props.loaderState.setToFalse()
+  }
+
+  componentDidMount() {
+    this.uploadImages(this.props.userData.ID)
+  }
+
   getPhotos = userID => {
+    this.setState({ refreshing: true })
+
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -23,6 +37,7 @@ class Gallery extends React.Component {
 
     fetch('http://pablorosas.pythonanywhere.com/GetPhotos', options)
       .then(response => {
+        console.log(response)
         this.setState({ refreshing: false })
 
         if (response.ok) return response.json()
@@ -43,60 +58,44 @@ class Gallery extends React.Component {
 
   render() {
     return (
-      <LoaderStateContext.Consumer>
-        {loaderState => (
-          <UserDataContext.Consumer>
-            {userData => {
-              const { data } = userData
+      <Fragment>
+        <MyHeader
+          text="Gallery"
+          subtitle={this.props.userData.Type}
+          link="/"
+          hasSetting
+        />
 
-              if (loaderState.hasToUpdate()) {
-                this.setState({ refreshing: true })
-                this.getPhotos(data.ID)
-                loaderState.setToFalse()
-              }
-
-              return (
-                <Fragment>
-                  <MyHeader
-                    text="Gallery"
-                    subtitle={data.Type}
-                    link="/"
-                    hasSetting
-                  />
-
-                  <View style={{ marginBottom: 85 }}>
-                    <ScrollView
-                      contentContainerStyle={MyStyles.content}
-                      refreshControl={
-                        <RefreshControl
-                          refreshing={this.state.refreshing}
-                          onRefresh={() => {
-                            if (loaderState.hasToUpdate()) {
-                              this.setState({ refreshing: true })
-                              this.componentWillReceiveProps
-                              this.getPhotos(data.ID)
-                              loaderState.setToFalse()
-                            }
-
-                          }}
-                        />
-                      }
-                    >
-                      {this.state.Photos.map(uri => (
-                        <View key={uri} style={MyStyles.item}>
-                          <Image source={{ uri }} style={MyStyles.photo} />
-                        </View>
-                      ))}
-                    </ScrollView>
-                  </View>
-                </Fragment>
-              )
-            }}
-          </UserDataContext.Consumer>
-        )}
-      </LoaderStateContext.Consumer>
+        <View style={{ marginBottom: 85 }}>
+          <ScrollView
+            contentContainerStyle={MyStyles.content}
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this.uploadImages}
+              />
+            }
+          >
+            {this.state.Photos.map(uri => (
+              <View key={uri} style={MyStyles.item}>
+                <Image source={{ uri }} style={MyStyles.photo} />
+              </View>
+            ))}
+          </ScrollView>
+        </View>
+      </Fragment>
     )
   }
 }
 
-export default Gallery
+const ContextWrapper = props => (
+  <LoaderStateContext.Consumer>
+    {loaderState => (
+      <UserDataContext.Consumer>
+        {userData => <Gallery {...props} {...{ loaderState, userData }} />}
+      </UserDataContext.Consumer>
+    )}
+  </LoaderStateContext.Consumer>
+)
+
+export default ContextWrapper
