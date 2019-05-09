@@ -1,26 +1,21 @@
-import React, { Fragment } from "react";
-import { TextInput, Avatar, Card, Button } from "react-native-paper";
-import { View, ScrollView, Image, RefreshControl } from "react-native";
-import MyHeader from "../../Header";
-import MyStyles from "../../Styles";
+import React, { Fragment } from 'react'
+import { View, ScrollView, Image, RefreshControl } from 'react-native'
 
-import { Icon } from "native-base";
-import UserDataContext from "../../App/UserDataContext";
-import { HasToUpdate } from "../state";
+import MyHeader from '../../Header'
+import MyStyles from '../../Styles'
+
+import UserDataContext from '../../App/UserDataContext'
+import { HasToUpdate } from '../LoaderStateContext'
+
+const myURL = 'http://pablorosas.pythonanywhere.com/static/'
+const defaultURL = 'https://unsplash.it/300/300/?random&__id'
+const defaultPhotos = Array.from({ length: 4 }).map((_, i) => defaultURL + i)
 
 class Gallery extends React.Component {
-  constructor(props) {
-    super(props);
-    const Photos = Array.from({ length: 4 }).map(
-      (_, i) =>
-        `https://unsplash.it/300/300/?random&__id=${this.props.route.key}${i}`
-    );
-    this.state = { Photos, refreshing: false };
-  }
+  state = { Photos: defaultPhotos, refreshing: false }
 
-<<<<<<< HEAD
   uploadImages() {
-    if (this.props.loaderState.hasToLoadImages() == false) return
+    if (this.props.loaderState.getValue() == false) return
 
     this.setState({ refreshing: true })
     this.getPhotos(this.props.userData.ID)
@@ -48,35 +43,20 @@ class Gallery extends React.Component {
         if (response.ok) return response.json()
         else alert('Algo fue mal con el servidor')
       })
-=======
-  getPhotos = id => {
-    const options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id })
-    };
-    console.log("Gettign photos " + id);
-    fetch("http://pablorosas.pythonanywhere.com/GetPhotos", options)
-      .then(res => res.json())
->>>>>>> parent of bce692f5... Update new state
       .then(newPhotos => {
-        if (newPhotos == null) return;
-        const myPhotos = newPhotos.map(
-          photo => `http://pablorosas.pythonanywhere.com/static/${photo.HashID}`
-        );
-        let newPhotosUnique = [...myPhotos, ...this.state.Photos];
-        newPhotosUnique = newPhotosUnique.filter(
-          (photo, index, self) => self.indexOf(photo) === index
-        );
-        console.log(newPhotosUnique);
-        this.setState({ Photos: newPhotosUnique, refreshing: false });
-      });
-  };
+        if (newPhotos == null) return
+
+        const myPhotos = newPhotos.map(photo => myURL + photo.HashID)
+        newPhotosUnique = [...myPhotos, ...this.state.Photos].filter(
+          (photo, index, self) => self.indexOf(photo) === index,
+        )
+        console.log(newPhotosUnique)
+        this.setState({ Photos: newPhotosUnique, refreshing: false })
+      })
+  }
 
   render() {
-    console.log(this.state.Photos);
     return (
-<<<<<<< HEAD
       <Fragment>
         <MyHeader
           text="Gallery"
@@ -108,68 +88,13 @@ class Gallery extends React.Component {
 }
 
 const ContextWrapper = props => (
-  <LoaderStateContext.Consumer>
+  <HasToUpdate.Consumer>
     {loaderState => (
       <UserDataContext.Consumer>
         {userData => <Gallery {...props} {...{ loaderState, userData }} />}
       </UserDataContext.Consumer>
     )}
-  </LoaderStateContext.Consumer>
+  </HasToUpdate.Consumer>
 )
 
 export default ContextWrapper
-=======
-      <HasToUpdate.Consumer>
-        {uploading => (
-          <UserDataContext.Consumer>
-            {context => {
-              console.log(uploading);
-              if (uploading.getState()) {
-                this.getPhotos(context.state.ID);
-                uploading.setToFalse();
-              }
-              const { data } = context;
-              return (
-                <Fragment>
-                  <MyHeader
-                    text="Gallery"
-                    subtitle={data.Type}
-                    link="/"
-                    hasSetting
-                  />
-                  <View style={{ marginBottom: 85 }}>
-                    <ScrollView
-                      contentContainerStyle={MyStyles.content}
-                      refreshControl={
-                        <RefreshControl
-                          refreshing={this.state.refreshing}
-                          onRefresh={() => {
-                            if (uploading.getState()) {
-                              this.setState({ refreshing: true });
-                              this.getPhotos(data.ID);
-                              uploading.setToFalse();
-                            }
-                          }}
-                        />
-                      }
-                    >
-                      {this.state.Photos.map(uri => (
-                        <View key={uri} style={MyStyles.item}>
-                          <Image source={{ uri }} style={MyStyles.photo} />
-                        </View>
-                      ))}
-                    </ScrollView>
-                  </View>
-                </Fragment>
-              );
-            }}
-          </UserDataContext.Consumer>
-        )}
-      </HasToUpdate.Consumer>
-    );
-  }
-}
-
-export default Gallery;
-
->>>>>>> parent of bce692f5... Update new state

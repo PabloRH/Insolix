@@ -5,15 +5,15 @@ import { View, Alert } from "react-native";
 
 import MyHeader from "../../Header";
 import UserDataContext from "../../App/UserDataContext";
-import { HasToUpdate } from "../state";
+import { HasToUpdate } from "../LoaderStateContext";
 
 const MyWorks = () => {
   return (
     <HasToUpdate.Consumer>
       { uploading => (
       <UserDataContext.Consumer>
-          {context => {
-            const { data } = context;
+          {userData => {
+            const { data } = userData;
             return (
               <Fragment>
                 <MyHeader
@@ -50,7 +50,7 @@ const MyWorks = () => {
                     }
                   
                   }}>
-                  Hi
+                  Subir imagen
                   </Button>
                 </View>
               </Fragment>

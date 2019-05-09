@@ -2,8 +2,8 @@
   "expoServerPort": 19000,
   "expoServerNgrokUrl": "https://qu-chj.anonymous.t2.exp.direct",
   "packagerNgrokUrl": "https://packager.qu-chj.anonymous.t2.exp.direct",
-  "ngrokPid": 6397,
+  "ngrokPid": 7019,
   "devToolsPort": 19002,
   "packagerPort": 19003,
-  "packagerPid": 6367
+  "packagerPid": 6998
 }

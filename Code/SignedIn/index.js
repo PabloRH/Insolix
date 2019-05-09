@@ -5,9 +5,9 @@ import Profile from './Profile'
 import Gallery from './Gallery'
 import MyWorks from './MyWorks'
 
-import { HasToUpdate, updater } from './state'
+import { HasToUpdate, createStateLoader } from './LoaderStateContext'
 
-const value = updater()
+const hasToUpdate = createStateLoader(true)
 
 const routes = [
   { key: 'Profile', title: 'Profile', icon: 'assignment-ind' },
@@ -23,7 +23,7 @@ class SignedIn extends React.Component {
 
   render() {
     return (
-      <HasToUpdate.Provider value={value}>
+      <HasToUpdate.Provider value={hasToUpdate}>
         <BottomNavigation
           navigationState={this.state}
           onIndexChange={this.handleIndexChange}
