@@ -10,7 +10,7 @@ import MyStyles from './Styles'
 const Home = props => {
   return (
     <Fragment>
-      <MyHeader text="Derbild" subtitle="Welcome" />
+      <MyHeader text="Derbild" subtitle="Welcome" hasSetting />
       <ScrollView>
         <Card style={MyStyles.margen}>
           <Card.Title
