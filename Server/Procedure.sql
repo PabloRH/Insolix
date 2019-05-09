@@ -49,3 +49,14 @@ CREATE PROCEDURE Upload (IN _ID INT, IN _HASHID VARCHAR(60))
             );
     END //
 DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS OtherPhotos;
+DELIMITER //
+CREATE PROCEDURE OtherPhotos (IN _ID INT)
+    BEGIN
+        SELECT Photo.HashID, User.Name FROM Photo, User  
+            WHERE UserID <> _ID AND UserID = User.ID;
+        
+    END //
+DELIMITER ;
