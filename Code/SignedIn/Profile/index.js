@@ -15,6 +15,7 @@ class Profile extends React.Component {
       <UserDataContext.Consumer>
         {context => {
           const { state } = context
+          console.log("Profile")
           console.log(state)
           return (
             <Fragment>

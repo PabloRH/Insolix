@@ -1,59 +1,60 @@
-import React, { Fragment } from "react";
-import { withRouter } from "react-router-native";
+import React, { Fragment } from 'react'
+import { withRouter } from 'react-router-native'
 import {
   Button,
   TextInput,
   ActivityIndicator,
-  Colors
-} from "react-native-paper";
-import { View, Alert } from "react-native";
+  Colors,
+} from 'react-native-paper'
+import { View, Alert } from 'react-native'
 
-import MyHeader from "../Header";
-import MyStyle from "../styles";
-import { Icon } from "native-base";
-import UserDataContext from "../App/UserDataContext";
+import MyHeader from '../Header'
+import MyStyle from '../styles'
+import { Icon } from 'native-base'
+import UserDataContext from '../App/UserDataContext'
 
 class Login extends React.Component {
-  state = { user: "", password: "", loading: false };
+  state = { user: '', password: '', loading: false }
   sendToDB = setter => {
-    if (this.state.loading) return;
-    const data = { user: this.state.user, password: this.state.password };
+    if (this.state.loading) return
+    const data = { user: this.state.user, password: this.state.password }
     const options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(data)
-    };
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    }
 
-    fetch("http://pablorosas.pythonanywhere.com/logIn", options)
+    fetch('http://pablorosas.pythonanywhere.com/logIn', options)
       .then(res => res.json())
       .then(res => {
         if (res.ID == null) {
           Alert.alert(
-            "¡Oh ha ocurrido un error!",
-            "No existe este Usuario\nΣ(▼ □ ▼メ)",
+            '¡Oh ha ocurrido un error!',
+            'No existe este Usuario\nΣ(▼ □ ▼メ)',
             [
               {
-                text: "¿Quieres Regitarte?",
-                onPress: () => this.props.history.push("/SignUp")
-              }
-            ]
-          );
-          this.setState({ loading: false });
+                text: '¿Quieres Regitarte?',
+                onPress: () => this.props.history.push('/SignUp'),
+              },
+            ],
+          )
+          this.setState({ loading: false })
         } else {
-          this.props.history.push("/SignedIn");
-          setter(res);
+          console.log(res)
+          this.props.history.push('/SignedIn')
+          setter(res)
         }
-      });
+      })
 
-    this.setState({ loading: true });
-  };
+    this.setState({ loading: true })
+  }
 
   render() {
     const textProps = {
-      mode: "outlined",
+      mode: 'outlined',
       style: MyStyle.input,
-      theme: { colors: { text: "black" } }
-    };
+      theme: { colors: { text: 'black' } },
+    }
 
     return (
       <Fragment>
@@ -81,7 +82,7 @@ class Login extends React.Component {
           </View>
           <UserDataContext.Consumer>
             {context => {
-              const { setter } = context;
+              const { setter } = context
               return (
                 <Button
                   icon="send"
@@ -91,21 +92,20 @@ class Login extends React.Component {
                 >
                   Log In
                 </Button>
-              );
+              )
             }}
           </UserDataContext.Consumer>
           {this.state.loading && (
             <ActivityIndicator
               animating={true}
-              size={"large"}
+              size={'large'}
               color={Colors.red800}
             />
           )}
         </View>
       </Fragment>
-    );
+    )
   }
 }
 
-export default withRouter(Login);
-
+export default withRouter(Login)
