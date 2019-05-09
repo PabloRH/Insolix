@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { NativeRouter, Route } from "react-router-native";
 
 import Home from "../Home";
@@ -6,27 +6,28 @@ import Login from "../Login";
 import SignUp from "../SignUp";
 import SignedIn from "../SignedIn";
 
-import { Data } from "./Data"
+import UserDataContext from "./UserDataContext";
 
 class App extends React.Component {
-  state = {ID: "0"}
-  render () {
-    const value = {state: this.state, setter: (nextState) => {
-      this.setState(nextState)
-    }}
-
+  state = { ID: "0" };
+  value = {
+    state: this.state,
+    setter: nextState => {
+      this.setState(nextState);
+    }
+  };
+  render() {
     return (
-      <Data.Provider value={value}>
+      <UserDataContext.Provider value={this.value}>
         <NativeRouter>
           <Route exact path="/" component={Home} />
-          <Route exact path="/login" component={Login} />
-          <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/logIn" component={Login} />
+          <Route exact path="/signUp" component={SignUp} />
           <Route exact path="/SignedIn" component={SignedIn} />
         </NativeRouter>
-      </Data.Provider>
-  );
+      </UserDataContext.Provider>
+    );
   }
-};
+}
 
 export default App;
-

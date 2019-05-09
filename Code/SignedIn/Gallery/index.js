@@ -5,7 +5,7 @@ import MyHeader from "../../Header";
 import MyStyles from "../../styles";
 
 import { Icon } from "native-base";
-import { Data } from "../../App/Data";
+import UserDataContext from "../../App/UserDataContext";
 import { HasToUpdate } from "../state";
 
 class Gallery extends React.Component {
@@ -46,7 +46,7 @@ class Gallery extends React.Component {
     return (
       <HasToUpdate.Consumer>
         {uploading => (
-          <Data.Consumer>
+          <UserDataContext.Consumer>
             {context => {
               console.log(uploading);
               if (uploading.getState()) {
@@ -88,7 +88,7 @@ class Gallery extends React.Component {
                 </Fragment>
               );
             }}
-          </Data.Consumer>
+          </UserDataContext.Consumer>
         )}
       </HasToUpdate.Consumer>
     );

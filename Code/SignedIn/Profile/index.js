@@ -7,12 +7,12 @@ import MyStyles from "../../styles";
 
 import { Icon } from "native-base";
 
-import { Data } from "../../App/Data";
+import UserDataContext from "../../App/UserDataContext";
 
 class Profile extends React.Component {
   render() {
     return (
-      <Data.Consumer>
+      <UserDataContext.Consumer>
         {context => {
           const { state } = context
           return (
@@ -85,7 +85,7 @@ class Profile extends React.Component {
             </Fragment>
           );
         }}
-      </Data.Consumer>
+      </UserDataContext.Consumer>
     );
   }
 }

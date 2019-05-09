@@ -11,7 +11,7 @@ import { View, Alert } from "react-native";
 import MyHeader from "../Header";
 import MyStyle from "../styles";
 import { Icon } from "native-base";
-import { Data } from "../App/Data";
+import UserDataContext from "../App/UserDataContext";
 
 class Login extends React.Component {
   state = { user: "", password: "", loading: false };
@@ -80,7 +80,7 @@ class Login extends React.Component {
               onChange={e => this.setState({ password: e.nativeEvent.text })}
             />
           </View>
-          <Data.Consumer>
+          <UserDataContext.Consumer>
             {context => {
               const { setter } = context;
               return (
@@ -94,7 +94,7 @@ class Login extends React.Component {
                 </Button>
               );
             }}
-          </Data.Consumer>
+          </UserDataContext.Consumer>
           {this.state.loading && (
             <ActivityIndicator
               animating={true}

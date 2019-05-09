@@ -4,14 +4,14 @@ import { ImagePicker } from 'expo';
 import { View, Alert } from "react-native";
 
 import MyHeader from "../../Header";
-import { Data } from "../../App/Data";
+import UserDataContext from "../../App/UserDataContext";
 import { HasToUpdate } from "../state";
 
 const MyWorks = () => {
   return (
     <HasToUpdate.Consumer>
       { uploading => (
-      <Data.Consumer>
+      <UserDataContext.Consumer>
           {context => {
             const { state } = context;
             return (
@@ -58,7 +58,7 @@ const MyWorks = () => {
               </Fragment>
             );
           }}
-      </Data.Consumer>
+      </UserDataContext.Consumer>
       )}
     </HasToUpdate.Consumer>
   )
