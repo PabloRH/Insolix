@@ -1,5 +1,5 @@
 from flask import Flask, request, json
-import MySQLdb
+import MySQLdb, os
 from werkzeug import secure_filename
 
 app = Flask(__name__)
@@ -12,6 +12,8 @@ app.config['PERMANENT_SESSION_LIFETIME'] = 86400
 
 app.config['SEND_FILE_MAX_AGE_DEFAULT'] = 0
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
+
+STATIC_ROOT = (os.path.join(os.path.dirname(__file__), "static"))
 
 
 @app.route('/')
@@ -95,10 +97,71 @@ def GetPhotos():
 
 @app.route('/upload_file', methods = ['POST'])
 def upload_file():
-  f = request.files['photo']
-  f.save(secure_filename(f.filename))
-  return 'file uploaded successfully'
-      
+        Der = MySQLdb.connect(
+        host       = 'PabloRosas.mysql.pythonanywhere-services.com',
+        user       = 'PabloRosas',
+        passwd   = 'xico2312252342',
+        db         = 'PabloRosas$Derbild',
+        )
+        Der.autocommit(True)
+
+        photo = request.files['photo']
+        realFilename = secure_filename(photo.filename)
+        photo.save(os.path.join(STATIC_ROOT, realFilename))
+
+        with Der.cursor(MySQLdb.cursors.DictCursor) as DB:
+            ID = photo.filename.split(" ")[0]
+            DB.callproc("Upload",[ID, realFilename])
+
+            return realFilename
+
+@app.route('/OthersPhotos', methods = ['Post'])
+def OthersPhotos():
+    Der = MySQLdb.connect(
+        host       = 'PabloRosas.mysql.pythonanywhere-services.com',
+        user       = 'PabloRosas',
+        passwd   = 'xico2312252342',
+        db         = 'PabloRosas$Derbild',
+    )
+    Der.autocommit(True)
+    with Der.cursor(MySQLdb.cursors.DictCursor) as DB:
+        data = request.get_json(force=True)
+
+        ID = data['id']
+        DB.callproc("OtherPhotos", [ID])
+        rows = DB.fetchall()
+        data= json.dumps(rows)
+
+        DB.close()
+        Der.close()
+        return data
+
+@app.route('/MoreInfo', methods = ['Post'])
+def MoreInfo():
+    Der = MySQLdb.connect(
+        host       = 'PabloRosas.mysql.pythonanywhere-services.com',
+        user       = 'PabloRosas',
+        passwd   = 'xico2312252342',
+        db         = 'PabloRosas$Derbild',
+    )
+    Der.autocommit(True)
+    with Der.cursor(MySQLdb.cursors.DictCursor) as DB:
+        data = request.get_json(force=True)
+
+        Age = data['Age']
+        Gender = data['Gender']
+        Residence = data['Residence']
+        Profesion = data['Profesion']
+        Descrip   = data['Descrip']
+        ID   = data['id']
+        DB.callproc("MoreInf", [ID, Age, Residence, Gender, Profesion, Descrip])
+        row = DB.fetchone()
+        data= json.dumps(row)
+
+        DB.close()
+        Der.close()
+        return data
+
 @app.route('/log')
 def logout():
     return ""

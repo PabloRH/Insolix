@@ -17,21 +17,14 @@ import { Icon } from 'native-base'
 import UserDataContext from '../App/UserDataContext'
 
 class Profile extends React.Component {
-
-  justOne = 0
-
-  state = {
-    Age: '',
-    Gender: '',
-    Residence: '',
-    Profesion: '',
-    Descrip: '',
-    loading: false,
+  constructor(props) {
+    super(props)
+    this.state = props.data
   }
 
   static getDerivedStateFromProps(props, state) {
-    if (state.Age != "") return null
-    return props.data
+    if (state.ID === 0) return props.data
+    else return null
   }
 
   sendToDB = () => {
@@ -43,6 +36,7 @@ class Profile extends React.Component {
       Descrip: this.state.Descrip,
       id: this.props.data.ID
     }
+
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

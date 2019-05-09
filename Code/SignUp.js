@@ -34,7 +34,12 @@ class Profile extends React.Component {
       body: JSON.stringify(data),
     }
     fetch('http://pablorosas.pythonanywhere.com/SignUp', options)
-      .then(res => res.json())
+      .then(response => {
+        this.setState({ loading: false })
+
+        if (response.ok) return response.json()
+        else alert('Algo fue mal con el servidor')
+      })
       .then(res => {
         if (res.ID == null)
           Alert.alert(
@@ -51,7 +56,7 @@ class Profile extends React.Component {
           Alert.alert('¡Bienvenido a DERBILD!', 'Por Favor Inicia Sesion.\n', [
             {
               text: '¡¡ Vamos ♡＼(￣▽￣)／♡ !!',
-              onChange: () => this.props.history.push('/Login'),
+              onPress: () => this.props.history.push('/logIn'),
             },
           ])
       })

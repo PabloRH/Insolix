@@ -1,5 +1,7 @@
 import React, { Fragment } from 'react'
 import { View, ScrollView, Image, RefreshControl } from 'react-native'
+import { Button } from 'react-native-paper'
+
 
 import MyHeader from '../Header'
 import MyStyles from '../Styles'
@@ -12,13 +14,16 @@ const defaultPhotos = []
 
 class Gallery extends React.Component {
   state = { Photos: defaultPhotos, refreshing: false }
+  alLeastOne = false
 
-  getLatestPhotos = () => {
-    if (this.props.loaderState.getValue() == false) return
+  getLatestPhotos = (pliss) => {
+    console.log("Getting them")
+    if (this.alLeastOne && this.props.loaderState.getValue() == false) return
 
     this.setState({ refreshing: true })
     this.getPhotos(this.props.data.ID)
     this.props.loaderState.setToFalse()
+    this.alLeastOne = true
   }
 
   componentDidMount() {
@@ -34,6 +39,8 @@ class Gallery extends React.Component {
       body: JSON.stringify({ id }),
     }
 
+    console.log({options})
+
     fetch('http://pablorosas.pythonanywhere.com/GetPhotos', options)
       .then(response => {
         this.setState({ refreshing: false })
@@ -42,6 +49,8 @@ class Gallery extends React.Component {
         else alert('Algo fue mal con el servidor')
       })
       .then(newPhotos => {
+        console.log(newPhotos)
+
         if (newPhotos == null) return
 
         const myPhotos = newPhotos.map(photo => myURL + photo.HashID)
@@ -55,6 +64,9 @@ class Gallery extends React.Component {
   }
 
   render() {
+
+    const empty = this.state.Photos.length === 0
+
     return (
       <Fragment>
         <MyHeader
@@ -74,6 +86,14 @@ class Gallery extends React.Component {
               />
             }
           >
+
+            {
+              empty && <Button
+              mode="contained"
+              style={{margin: 16}}
+              onPress={this.getLatestPhotos}
+            >Get the latest photos</Button>
+            }
             {this.state.Photos.map(uri => (
               <View key={uri} style={MyStyles.item}>
                 <Image source={{ uri }} style={MyStyles.photo} />

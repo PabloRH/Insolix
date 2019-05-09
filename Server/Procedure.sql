@@ -56,7 +56,7 @@ DELIMITER //
 CREATE PROCEDURE OtherPhotos (IN _ID INT)
     BEGIN
         SELECT Photo.HashID, User.Name FROM Photo, User  
-            WHERE UserID <> _ID AND UserID = User.ID;
+            WHERE UserID <> _ID AND UserID = User.ID ORDER BY RAND();
         
     END //
 DELIMITER ;

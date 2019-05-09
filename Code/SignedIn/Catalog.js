@@ -82,9 +82,14 @@ class Catalog extends React.Component {
           }
         })
 
-        newPhotosUnique = [...myPhotos, ...this.state.Photos].filter(
-          (photo, index, self) => self.indexOf(photo) === index,
-        )
+        const newPhotosUnique = [...myPhotos, ...this.state.Photos].reduce((acc, current) => {
+          const x = acc.find(item => item.uri === current.uri);
+          if (!x) {
+            return acc.concat([current]);
+          } else {
+            return acc;
+          }
+        }, []);
 
         console.log(newPhotosUnique)
         this.setState({ Photos: newPhotosUnique, refreshing: false })
@@ -116,12 +121,10 @@ class Catalog extends React.Component {
                 <Card key={uri} elevation={2} style={{ margin: 9 }}>
                   <Card.Title
                     title={name}
-                    left={props => (
-                      <Avatar.Icon {...props} icon="face" />
-                    )}
+                    left={props => <Avatar.Icon {...props} icon="face" />}
                   />
                   <Card.Content>
-                      <FullWidthImage source={{ uri }} />
+                    <FullWidthImage source={{ uri }} />
                   </Card.Content>
                   <Card.Actions>
                     <Button>Like</Button>
