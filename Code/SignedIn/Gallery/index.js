@@ -14,26 +14,28 @@ const defaultPhotos = Array.from({ length: 4 }).map((_, i) => defaultURL + i)
 class Gallery extends React.Component {
   state = { Photos: defaultPhotos, refreshing: false }
 
-  uploadImages() {
+  uploadImages = () => {
     if (this.props.loaderState.getValue() == false) return
 
     this.setState({ refreshing: true })
-    this.getPhotos(this.props.userData.ID)
+    this.getPhotos(this.props.data.ID)
     this.props.loaderState.setToFalse()
   }
 
   componentDidMount() {
-    this.uploadImages(this.props.userData.ID)
+    this.uploadImages()
   }
 
-  getPhotos = userID => {
+  getPhotos = id => {
     this.setState({ refreshing: true })
 
     const options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ userID }),
+      body: JSON.stringify({ id }),
     }
+
+    console.log({options})
 
     fetch('http://pablorosas.pythonanywhere.com/GetPhotos', options)
       .then(response => {
@@ -60,7 +62,7 @@ class Gallery extends React.Component {
       <Fragment>
         <MyHeader
           text="Gallery"
-          subtitle={this.props.userData.Type}
+          subtitle={this.props.data.Type}
           link="/"
           hasSetting
         />
@@ -91,7 +93,7 @@ const ContextWrapper = props => (
   <HasToUpdate.Consumer>
     {loaderState => (
       <UserDataContext.Consumer>
-        {userData => <Gallery {...props} {...{ loaderState, userData }} />}
+        { ({data}) => <Gallery {...props} loaderState={loaderState} data={data} />}
       </UserDataContext.Consumer>
     )}
   </HasToUpdate.Consumer>

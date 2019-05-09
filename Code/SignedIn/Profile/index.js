@@ -13,10 +13,8 @@ class Profile extends React.Component {
   render() {
     return (
       <UserDataContext.Consumer>
-        {context => {
-          const { data } = context
-          console.log('Profile')
-          console.log(data)
+        {userData => {
+          const { data } = userData
           return (
             <Fragment>
               <MyHeader
