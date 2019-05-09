@@ -1,13 +1,13 @@
-import React, { Fragment } from "react";
-import { TextInput, Avatar, Card, Button } from "react-native-paper";
-import { View, ScrollView } from "react-native";
+import React, { Fragment } from 'react'
+import { TextInput, Avatar, Card, Button } from 'react-native-paper'
+import { View, ScrollView } from 'react-native'
 
-import MyHeader from "../../Header";
-import MyStyles from "../../styles";
+import MyHeader from '../../Header'
+import MyStyles from '../../Styles'
 
-import { Icon } from "native-base";
+import { Icon } from 'native-base'
 
-import UserDataContext from "../../App/UserDataContext";
+import UserDataContext from '../../App/UserDataContext'
 
 class Profile extends React.Component {
   render() {
@@ -15,7 +15,7 @@ class Profile extends React.Component {
       <UserDataContext.Consumer>
         {context => {
           const { state } = context
-          console.log("Profile")
+          console.log('Profile')
           console.log(state)
           return (
             <Fragment>
@@ -34,7 +34,7 @@ class Profile extends React.Component {
                       left={props => (
                         <Avatar.Image
                           size={50}
-                          source={require("../../../assets/avatar.png")}
+                          source={require('../../../assets/avatar.png')}
                         />
                       )}
                     />
@@ -74,23 +74,18 @@ class Profile extends React.Component {
                       />
                     </View>
 
-                    <Button
-                      icon="refresh"
-                      mode="outlined"
-                      style={MyStyles.btn}
-                    >
+                    <Button icon="refresh" mode="outlined" style={MyStyles.btn}>
                       Refresh Info
                     </Button>
                   </View>
                 </ScrollView>
               </View>
             </Fragment>
-          );
+          )
         }}
       </UserDataContext.Consumer>
-    );
+    )
   }
 }
 
-export default Profile;
-
+export default Profile

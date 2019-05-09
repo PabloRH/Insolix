@@ -2,7 +2,7 @@ import React, { Fragment } from "react";
 import { TextInput, Avatar, Card, Button } from "react-native-paper";
 import { View, ScrollView, Image, RefreshControl } from "react-native";
 import MyHeader from "../../Header";
-import MyStyles from "../../styles";
+import MyStyles from "../../Styles";
 
 import { Icon } from "native-base";
 import UserDataContext from "../../App/UserDataContext";

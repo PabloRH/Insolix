@@ -24,7 +24,6 @@ const MyWorks = () => {
                   <Button onPress={async () => {
 
                     const result = await ImagePicker.launchImageLibraryAsync()
-                    console.log(result)
 
                     if (result.cancelled) return
 
@@ -49,7 +48,6 @@ const MyWorks = () => {
                       Alert.alert("Imagen subida con exito")
                       uploading.setToTrue()
                     }
-                    console.log(serverResponse)
                   
                   }}>
                   Hi
