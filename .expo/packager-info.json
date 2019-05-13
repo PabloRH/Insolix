@@ -4,6 +4,6 @@
   "packagerNgrokUrl": "https://packager.z8-wgq.pablorh.t2.exp.direct",
   "ngrokPid": 2122,
   "devToolsPort": 19002,
-  "packagerPort": 19001,
-  "packagerPid": 2114
+  "packagerPort": null,
+  "packagerPid": null
 }
