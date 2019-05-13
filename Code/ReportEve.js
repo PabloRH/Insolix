@@ -142,6 +142,7 @@ class Reportes extends React.Component {
               >
                 <Picker.Item label="Error" value="Error" />
                 <Picker.Item label="Duda" value="Duda" />
+                <Picker.Item label="Mantenimiento" value="Mantenimiento" />
                 <Picker.Item label="Mejora" value="Mejora" />
                 <Picker.Item label="No responden" value="No responden" />
               </Picker>
