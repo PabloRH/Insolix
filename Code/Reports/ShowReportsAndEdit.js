@@ -14,6 +14,7 @@ class ShowReportsAndEdit extends React.Component {
   state = { reports: [] }
 
   componentDidMount() {
+    console.log(this.props.data)
     this.setState({ loading: true })
 
     const options = {
@@ -31,9 +32,9 @@ class ShowReportsAndEdit extends React.Component {
       })
       .then(reports => {
         if (this.props.data.Type === 'Ing. Mantenimiento') {
-          const result = reports.filter(r => r.Type === 'Mantenimiento')
-          this.setState({ result })
-        } else this.setState({ reports })
+          const result = reports.filter(r => r.Tipo === 'Mantenimiento')
+          this.setState({ reports: result, ...result[0] })
+        } else this.setState({ reports, ...reports[0] })
       })
   }
 
@@ -118,6 +119,10 @@ class ShowReportsAndEdit extends React.Component {
               <Picker
                 style={MyStyles.input}
                 selectedValue={this.state.Tipo}
+                enabled={
+                  this.props.data.Type !== 'Ing. Mantenimiento' &&
+                  this.props.data.Type !== 'Gerente Mantenimiento'
+                }
                 onValueChange={itemValue => this.setState({ Tipo: itemValue })}
               >
                 <Picker.Item label="Error" value="Error" />
@@ -127,8 +132,7 @@ class ShowReportsAndEdit extends React.Component {
                 <Picker.Item label="No responden" value="No responden" />
               </Picker>
 
-              {(this.props.data.Type === 'Gerente Soporte' ||
-                this.props.data.Type === 'Gerente Mantenimiento') && (
+              {this.props.data.Type === 'Gerente Soporte' && (
                 <Picker
                   style={MyStyles.input}
                   selectedValue={this.state.AsigID}
@@ -136,19 +140,21 @@ class ShowReportsAndEdit extends React.Component {
                     this.setState({ AsigID: itemValue })
                   }
                 >
-                  {this.props.data.Type === 'Gerente Soporte' && (
-                    <Fragment>
-                      <Picker.Item label="Gerente Ceron" value={3} />
-                      <Picker.Item label="Inge Gaddi" value={2} />
-                    </Fragment>
-                  )}
+                  <Picker.Item label="Gerente Ceron" value={3} />
+                  <Picker.Item label="Inge Gaddi" value={2} />
+                </Picker>
+              )}
 
-                  {this.props.data.Type === 'Gerente Mantenimiento' && (
-                    <Fragment>
-                      <Picker.Item label="Gerente Fernanda" value={4} />
-                      <Picker.Item label="Ing Oscar" value={5} />
-                    </Fragment>
-                  )}
+              {this.props.data.Type === 'Gerente Mantenimiento' && (
+                <Picker
+                  style={MyStyles.input}
+                  selectedValue={this.state.AsigID}
+                  onValueChange={itemValue =>
+                    this.setState({ AsigID: itemValue })
+                  }
+                >
+                  <Picker.Item label="Gerente Fernanda" value={4} />
+                  <Picker.Item label="Ing Oscar" value={5} />
                 </Picker>
               )}
 
