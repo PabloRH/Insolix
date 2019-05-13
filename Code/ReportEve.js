@@ -28,6 +28,8 @@ class Reportes extends React.Component {
       Reporte: this.state.Reporte,
       Fecha: this.state.Fecha,
       Resp: this.state.Resp,
+      asig: this.state.asig,
+      esta: this.state.esta,
       tipo: this.state.tipo,
       id: this.props.data.ID
     }
@@ -117,6 +119,24 @@ class Reportes extends React.Component {
 
               <Picker
                 style={MyStyles.input}
+                selectedValue={this.state.esta}
+                onValueChange={itemValue => this.setState({ esta: itemValue })}
+              >
+                <Picker.Item label="Abierto" value="Abierto" />
+                <Picker.Item label="Cerrado" value="Cerrado" />
+              </Picker>
+
+              <Picker
+                style={MyStyles.input}
+                selectedValue={this.state.asig}
+                onValueChange={itemValue => this.setState({ asig: itemValue })}
+              >
+                <Picker.Item label="Gerente. Ceron" value="Ceron" />
+                <Picker.Item label="Ing. Gaddi" value="Gaddi" />
+              </Picker>
+
+              <Picker
+                style={MyStyles.input}
                 selectedValue={this.state.tipo}
                 onValueChange={itemValue => this.setState({ tipo: itemValue })}
               >
@@ -134,6 +154,17 @@ class Reportes extends React.Component {
                   style={MyStyles.input}
                   value={this.state.Reporte}
                   onChange={e => this.setState({ Reporte: e.nativeEvent.text })}
+                />
+              </View>
+
+              <View style={MyStyles.sideIcon}>
+                <TextInput
+                  label="Respeusta"
+                  mode="outlined"
+                  multiline
+                  style={MyStyles.input}
+                  value={this.state.Resp}
+                  onChange={e => this.setState({ Resp: e.nativeEvent.text })}
                 />
               </View>
 

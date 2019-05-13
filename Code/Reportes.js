@@ -40,6 +40,7 @@ class Reportes extends React.Component {
       })
       .then(() => {
         this.setState({ loading: false })
+        alert("Reporte Exitoso \nUn operador atendera tu reporte y te responderemos en la brevedad por tu Correo Electronico, Gracias")
       })
     this.setState({ loading: true })
   }
@@ -53,7 +54,7 @@ class Reportes extends React.Component {
             <Card style={MyStyles.margen}>
               <Card.Title
                 title="Reportes"
-                subtitle="Por Favor Escribe tu problemas un operador atendera tu reporte"
+                subtitle="Por Favor Escribe tus problemas o dudas"
               />
               <Card.Content />
             </Card>
