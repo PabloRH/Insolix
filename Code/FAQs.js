@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
-import { View, ScrollView } from 'react-native'
+import { ScrollView } from 'react-native'
 
-import { Avatar, Card, Text, Paragraph } from 'react-native-paper'
+import { Avatar, Card, Paragraph } from 'react-native-paper'
 import { withRouter } from 'react-router-native'
 
 import MyHeader from './Header'
@@ -14,17 +14,17 @@ const FAQs = props => {
       <ScrollView>
         <Card style={MyStyles.margen}>
           <Card.Title
-            title="!Bienvenido a FAQ"
-            subtitle="(╯✧▽✧)╯"
+            title="!Bienvenido a FAQ's"
+            subtitle=""
             left={props => (
               <Avatar.Icon {...props} icon={require('../assets/icon.png')} />
             )}
           />
           <Card.Content>
             <Paragraph>
-              Antes que nada te damos la bienvenida a Derbild, una App para
-              Fotografos por favor diviertete, si tienes algun problema,
-              perdon... Σ(°△°)
+              Bienvenido a FAQ's en caso que tengas alguna duda, es posible que otros usuarios 
+              tambien los tenga.
+              Tengo mas dudas.
             </Paragraph>
           </Card.Content>
         </Card>

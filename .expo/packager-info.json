@@ -1,9 +1,9 @@
 {
-  "expoServerPort": null,
+  "expoServerPort": 19000,
   "expoServerNgrokUrl": "https://z8-wgq.pablorh.t2.exp.direct",
   "packagerNgrokUrl": "https://packager.z8-wgq.pablorh.t2.exp.direct",
-  "ngrokPid": 16673,
+  "ngrokPid": 1947,
   "devToolsPort": 19002,
-  "packagerPort": null,
-  "packagerPid": null
+  "packagerPort": 19001,
+  "packagerPid": 1932
 }

@@ -70,3 +70,47 @@ CREATE PROCEDURE MoreInf (IN _ID INT, IN _age INT, IN _gender VARCHAR(60), IN _r
             WHERE ID = _ID;
     END //
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS ReportEve;
+DELIMITER //
+CREATE PROCEDURE ReportEve (IN _ID INT, IN _Nombre VARCHAR(25), IN _Report VARCHAR(256), IN _Tipo VARCHAR(25), IN _Date VARCHAR(25))
+    BEGIN
+        INSERT INTO ReportEve(UserID, Nombre, Tipo, Reporte, Fecha)  
+            VALUES(
+                _ID,
+                _Nombre,
+                _Tipo,
+                _Report,
+                _Date
+            );
+        SELECT NoReporte FROM ReportEve
+            WHERE
+                Nombre = _Nombre AND 
+                UserID = _ID;
+    END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS Report;
+DELIMITER //
+CREATE PROCEDURE Report (IN _ID INT, IN _Report VARCHAR(256))
+    BEGIN
+        INSERT INTO Report(UserID, Reporte)  
+            VALUES(
+                _ID,
+                _Report
+            );
+    END //
+DELIMITER ;
+
+
+
+DROP PROCEDURE IF EXISTS RepoE;
+DELIMITER //
+CREATE PROCEDURE RepoE (IN _user VARCHAR(25), IN _password VARCHAR(25))
+    BEGIN
+        SELECT * FROM User 
+            WHERE 
+                User = _user AND 
+                Password = _password;
+    END //
+DELIMITER ;

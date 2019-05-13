@@ -7,7 +7,7 @@ import {
   Colors,
   ActivityIndicator,
 } from 'react-native-paper'
-import { View, ScrollView, Alert } from 'react-native'
+import { View, ScrollView } from 'react-native'
 
 import MyHeader from '../Header'
 import MyStyles from '../Styles'
