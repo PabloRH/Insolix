@@ -20,7 +20,7 @@ const MyHeader = props => {
                 { text: 'FAQs', onPress: () => props.history.push('/FAQs') },
                 {
                   text: 'Reportes',
-                  onPress: () => props.history.push('/Reportes'),
+                  onPress: () => props.history.push('/reports'),
                 },
                 { text: 'Salir', onPress: () => props.history.push('/') },
               ],

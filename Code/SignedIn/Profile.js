@@ -1,12 +1,7 @@
 import React, { Fragment } from 'react'
-import {
-  TextInput,
-  Avatar,
-  Card,
-  Button,
-  Colors,
-  ActivityIndicator,
-} from 'react-native-paper'
+import { TextInput, Avatar, Card, Button } from 'react-native-paper'
+
+import { Colors, ActivityIndicator } from 'react-native-paper'
 import { View, ScrollView } from 'react-native'
 
 import MyHeader from '../Header'
@@ -34,7 +29,7 @@ class Profile extends React.Component {
       Residence: this.state.Residence,
       Profesion: this.state.Profesion,
       Descrip: this.state.Descrip,
-      id: this.props.data.ID
+      id: this.props.data.ID,
     }
 
     const options = {
@@ -59,7 +54,12 @@ class Profile extends React.Component {
   render() {
     return (
       <Fragment>
-        <MyHeader text="Profile" subtitle={this.props.data.Type} link="/" hasSetting />
+        <MyHeader
+          text="Profile"
+          subtitle={this.props.data.Type}
+          link="/"
+          hasSetting
+        />
         <View style={MyStyles.appContainer}>
           <ScrollView>
             <Card style={MyStyles.margen}>

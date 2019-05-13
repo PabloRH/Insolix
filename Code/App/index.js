@@ -7,7 +7,7 @@ import Login from '../LogIn'
 import SignUp from '../SignUp'
 import SignedIn from '../SignedIn'
 import FAQs from '../FAQs'
-import Reportes from '../Reportes'
+import Reports from '../Reports'
 
 import UserDataContext from './UserDataContext'
 
@@ -52,7 +52,7 @@ class WillHaveRouter extends React.Component {
         <Route exact path="/signUp" component={SignUp} />
         <Route exact path="/signedIn" component={SignedIn} />
         <Route exact path="/FAQs" component={FAQs} />
-        <Route exact path="/Reportes" component={Reportes} />
+        <Route exact path="/reports" component={Reports} />
       </Fragment>
     )
   }
