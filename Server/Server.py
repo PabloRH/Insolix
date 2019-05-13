@@ -41,6 +41,7 @@ def logIn():
         if row == None:
             data = json.dumps({"ID": None})
         else:
+            row["Age"] = str(row["Age"])
             data = json.dumps(row)
         DB.close()
         Der.close()
@@ -162,6 +163,120 @@ def MoreInfo():
         Der.close()
         return data
 
+@app.route('/Reportes', methods = ['Post'])
+def Reportes():
+    Der = MySQLdb.connect(
+        host       = 'PabloRosas.mysql.pythonanywhere-services.com',
+        user       = 'PabloRosas',
+        passwd   = 'xico2312252342',
+        db         = 'PabloRosas$Derbild',
+    )
+    Der.autocommit(True)
+    with Der.cursor(MySQLdb.cursors.DictCursor) as DB:
+        data = request.get_json(force=True)
+
+        Report = data['Reporte']
+        ID   = data['id']
+        DB.callproc("Report", [ID, Report])
+        row = DB.fetchone()
+        data= json.dumps(row)
+
+        DB.close()
+        Der.close()
+        return data
+
+@app.route('/ReportesEve', methods = ['Post'])
+def ReportesEve():
+    Der = MySQLdb.connect(
+        host       = 'PabloRosas.mysql.pythonanywhere-services.com',
+        user       = 'PabloRosas',
+        passwd   = 'xico2312252342',
+        db         = 'PabloRosas$Derbild',
+    )
+    Der.autocommit(True)
+    with Der.cursor(MySQLdb.cursors.DictCursor) as DB:
+        data = request.get_json(force=True)
+
+        Nombre = data['NomReport']
+        Report = data['Reporte']
+        Date = data['Fecha']
+        ID   = data['id']
+        Tipo = data['tipo']
+        DB.callproc("ReportEve", [ID, Nombre, Report, Tipo, Date])
+        row = DB.fetchone()
+        data= json.dumps(row)
+
+        DB.close()
+        Der.close()
+        return data
+
 @app.route('/log')
 def logout():
     return ""
+
+@app.route('/GetReports', methods = ['Post'])
+def GetReports():
+    Der = MySQLdb.connect(
+        host       = 'PabloRosas.mysql.pythonanywhere-services.com',
+        user       = 'PabloRosas',
+        passwd   = 'xico2312252342',
+        db         = 'PabloRosas$Derbild',
+    )
+    Der.autocommit(True)
+    with Der.cursor(MySQLdb.cursors.DictCursor) as DB:
+
+        DB.callproc("GetReports", )
+        row = DB.fetchall()
+        data= json.dumps(row)
+
+        DB.close()
+        Der.close()
+        return data
+
+@app.route('/GetMante', methods = ['Post'])
+def GetMante():
+    Der = MySQLdb.connect(
+        host       = 'PabloRosas.mysql.pythonanywhere-services.com',
+        user       = 'PabloRosas',
+        passwd   = 'xico2312252342',
+        db         = 'PabloRosas$Derbild',
+    )
+    Der.autocommit(True)
+    with Der.cursor(MySQLdb.cursors.DictCursor) as DB:
+
+        DB.callproc("GetReportMante", )
+        row = DB.fetchall()
+        data= json.dumps(row)
+
+        DB.close()
+        Der.close()
+        return data
+
+@app.route('/UpdateOpera', methods = ['Post'])
+def UpdateOpera():
+    Der = MySQLdb.connect(
+        host       = 'PabloRosas.mysql.pythonanywhere-services.com',
+        user       = 'PabloRosas',
+        passwd   = 'xico2312252342',
+        db         = 'PabloRosas$Derbild',
+    )
+    Der.autocommit(True)
+    with Der.cursor(MySQLdb.cursors.DictCursor) as DB:
+        data = request.get_json(force=True)
+
+        Fecha = data['Fecha']
+        Nombre = data['Nombre']
+        Tipo = data['Tipo']
+        Reporte = data['Reporte']
+        NoReporte   = data['NoReporte']
+        AsigID = data['AsigID']
+        Respues = data['Respues']
+        Estado = data['Estado']
+        DB.callproc("Operador", [Fecha, Nombre, Tipo, Reporte, NoReporte, AsigID, Respues, Estado])
+        row = DB.fetchone()
+        data= json.dumps(row)
+
+        DB.close()
+        Der.close()
+        return data
+

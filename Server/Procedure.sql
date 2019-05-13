@@ -114,3 +114,29 @@ CREATE PROCEDURE RepoE (IN _user VARCHAR(25), IN _password VARCHAR(25))
                 Password = _password;
     END //
 DELIMITER ;
+
+DROP PROCEDURE IF EXISTS GetReports;
+DELIMITER //
+CREATE PROCEDURE GetReports ()
+    BEGIN
+        SELECT * FROM Report WHERE Estado IS NULL OR Estado != "Cerrado";
+    END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS GetReportMante;
+DELIMITER //
+CREATE PROCEDURE GetReportMante ()
+    BEGIN
+        SELECT * FROM Report WHERE Tipo = "Mantenimiento";
+    END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS Operador;
+DELIMITER //
+CREATE PROCEDURE Operador (IN _fecha VARCHAR(65), IN _Nombre VARCHAR(65), IN _Tipo VARCHAR(65), IN _Repo VARCHAR(65), IN _IDRepo INT, IN _AsigID INT, IN _Respues VARCHAR(256), IN _Estado VARCHAR(65))
+    BEGIN
+        UPDATE Report
+            SET Fecha=_fecha, Nombre=_Nombre, Tipo=_Tipo, Reporte=_Repo, AsigID=_AsigID, Respues=_Respues, Estado=_Estado
+            WHERE NoReporte = _IDRepo;
+    END //
+DELIMITER ;
