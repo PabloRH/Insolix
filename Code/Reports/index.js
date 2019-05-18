@@ -4,7 +4,7 @@ import UserDataContext from '../App/UserDataContext'
 
 import ReportsUser from './ReportsUser'
 import ShowReportsAndEdit from './ShowReportsAndEdit'
-import FAQs from '../FAQsEdit'
+import FAQsEdit from '../FAQsEdit'
 
 const Reports = () => {
   return (
@@ -25,7 +25,7 @@ const Reports = () => {
             return 'Administrador'
 
           case 'Editor':
-            return <FAQs />
+            return <FAQsEdit />
         }
       }}
     </UserDataContext.Consumer>

@@ -11,7 +11,7 @@ import MyStyles from './Styles'
 import UserDataContext from './App/UserDataContext'
 
 class FAQsEdit extends React.Component {
-  state = { reports: [] }
+  state = { questions: [] }
 
   componentDidMount() {
     console.log(this.props.data)
@@ -26,10 +26,10 @@ class FAQsEdit extends React.Component {
     fetch('http://pablorosas.pythonanywhere.com/GetPreg', options)
       .then(response => {
         this.setState({ loading: false })
-
         if (response.ok) return response.json()
         else alert('Algo fue mal con el ')
       })
+      .then(questions => this.setState({ questions }))
   }
 
   sendToDB = () => {
@@ -69,27 +69,31 @@ class FAQsEdit extends React.Component {
           <ScrollView contentContainerStyle={MyStyles.content}>
             <DataTable>
               <DataTable.Header>
-                <DataTable.Title numeric>Numero de Pregunta</DataTable.Title>
                 <DataTable.Title>Pregunta</DataTable.Title>
                 <DataTable.Title >Respuesta</DataTable.Title>
                 <DataTable.Title numeric>Likes</DataTable.Title>
                 <DataTable.Title numeric>Dislikes</DataTable.Title>
+                <DataTable.Title numeric>#</DataTable.Title>
               </DataTable.Header>
 
-              {this.state.reports.map(report => (
-                <DataTable.Row
-                  key={report.NoPregu}
-                  onPress={() => {
-                    this.setState({ ...report })
-                  }}
-                >
-                  <DataTable.Cell numeric>{report.NoPregu}</DataTable.Cell>
-                  <DataTable.Cell>{report.Pregunta}</DataTable.Cell>
-                  <DataTable.Cell >{report.Respuesta}</DataTable.Cell>
-                  <DataTable.Cell numeric>{report.Likes}</DataTable.Cell>
-                  <DataTable.Cell numeric>{report.Dislikes}</DataTable.Cell>
-                </DataTable.Row>
-              ))}
+              {this.state.questions.map(question => {
+                console.log(question)
+                return (
+                  <DataTable.Row
+                    key={question.IDPregu}
+                    onPress={() => {
+                      this.setState({ ...question })
+                    }}
+                  >
+                    <DataTable.Cell>{question.Pregunta}</DataTable.Cell>
+                    <DataTable.Cell >{question.Respuesta}</DataTable.Cell>
+                    <DataTable.Cell numeric>{question.Likes}</DataTable.Cell>
+                    <DataTable.Cell numeric>{question.Dislikes}</DataTable.Cell>
+                    <DataTable.Cell numeric>{question.NoPregu}</DataTable.Cell>
+                  </DataTable.Row>
+                )
+              }
+              )}
             </DataTable>
 
             <View>
@@ -99,7 +103,7 @@ class FAQsEdit extends React.Component {
                   mode="outlined"
                   keyboardType="numeric"
                   style={MyStyles.input}
-                  value={this.state.NoPregu}
+                  value={this.state.NoPregu && this.state.NoPregu.toString()}
                   onChange={e => this.setState({ NoPregu: e.nativeEvent.text })}
                 />
               </View>
