@@ -75,7 +75,7 @@ class ShowReportsAndEdit extends React.Component {
           <ScrollView contentContainerStyle={MyStyles.content}>
             <DataTable>
               <DataTable.Header>
-                <DataTable.Title>Numero</DataTable.Title>
+                <DataTable.Title numeric>Numero</DataTable.Title>
                 <DataTable.Title>Texto</DataTable.Title>
                 <DataTable.Title numeric>Id de Usuario</DataTable.Title>
               </DataTable.Header>
@@ -87,9 +87,9 @@ class ShowReportsAndEdit extends React.Component {
                     this.setState({ ...report })
                   }}
                 >
-                  <DataTable.Cell>{report.NoReporte}</DataTable.Cell>
+                  <DataTable.Cell numeric>{report.NoReporte}</DataTable.Cell>
                   <DataTable.Cell>{report.Reporte}</DataTable.Cell>
-                  <DataTable.Cell>{report.UserID}</DataTable.Cell>
+                  <DataTable.Cell numeric>{report.UserID}</DataTable.Cell>
                 </DataTable.Row>
               ))}
             </DataTable>
@@ -172,7 +172,9 @@ class ShowReportsAndEdit extends React.Component {
               )}
 
               {(this.props.data.Type === 'Gerente Soporte' ||
-                this.props.data.Type === 'Ing. Soporte') && (
+                this.props.data.Type === 'Ing. Soporte' ||
+                this.props.data.Type === 'Gerente Mantenimiento' ||
+                this.props.data.Type === 'Ing. Mantenimiento') && (
                 <View style={MyStyles.sideIcon}>
                   <TextInput
                     label="Respuesta"

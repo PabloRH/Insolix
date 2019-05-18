@@ -1,16 +1,16 @@
 import React, { Fragment } from 'react'
 import { Button } from 'react-native-paper'
 
-import { DataTable } from 'react-native-paper'
-import { TextInput, Text } from 'react-native-paper'
-import { View, ScrollView } from 'react-native'
+import { Colors, ActivityIndicator, DataTable } from 'react-native-paper'
+import { TextInput } from 'react-native-paper'
+import { View, ScrollView, Picker } from 'react-native'
 
 import MyHeader from './Header'
 import MyStyles from './Styles'
 
 import UserDataContext from './App/UserDataContext'
 
-class ShowReportsAndEdit extends React.Component {
+class FAQsEdit extends React.Component {
   state = { reports: [] }
 
   componentDidMount() {
@@ -23,26 +23,44 @@ class ShowReportsAndEdit extends React.Component {
       body: JSON.stringify({}),
     }
 
-    fetch('http://pablorosas.pythonanywhere.com/GetFaq', options)
+    fetch('http://pablorosas.pythonanywhere.com/GetPreg', options)
+      .then(response => {
+        this.setState({ loading: false })
+
+        if (response.ok) return response.json()
+        else alert('Algo fue mal con el ')
+      })
+  }
+
+  sendToDB = () => {
+    const data = { ...this.state }
+
+    const options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(data),
+    }
+
+    console.log(options)
+
+    fetch('http://pablorosas.pythonanywhere.com/UpdatePreg', options)
       .then(response => {
         this.setState({ loading: false })
 
         if (response.ok) return response.json()
         else alert('Algo fue mal con el servidor')
       })
-      .then(reports => {
-        if (this.props.data.Type === 'Ing. Mantenimiento') {
-          const result = reports.filter(r => r.Tipo === 'Mantenimiento')
-          this.setState({ reports: result, ...result[0] })
-        } else this.setState({ reports, ...reports[0] })
+      .then(() => {
+        this.setState({ loading: false })
       })
+    this.setState({ loading: true })
   }
 
   render() {
     return (
       <Fragment>
         <MyHeader
-          text="Profile"
+          text="FAQ's"
           subtitle={this.props.data.Type}
           link="/"
           hasSetting
@@ -51,8 +69,9 @@ class ShowReportsAndEdit extends React.Component {
           <ScrollView contentContainerStyle={MyStyles.content}>
             <DataTable>
               <DataTable.Header>
-                <DataTable.Title numeric>No. Pregunta</DataTable.Title>
+                <DataTable.Title numeric>Numero de Pregunta</DataTable.Title>
                 <DataTable.Title>Pregunta</DataTable.Title>
+                <DataTable.Title >Respuesta</DataTable.Title>
                 <DataTable.Title numeric>Likes</DataTable.Title>
                 <DataTable.Title numeric>Dislikes</DataTable.Title>
               </DataTable.Header>
@@ -65,9 +84,10 @@ class ShowReportsAndEdit extends React.Component {
                   }}
                 >
                   <DataTable.Cell numeric>{report.NoPregu}</DataTable.Cell>
-                  <DataTable.Cell>{report.Reporte}</DataTable.Cell>
-                  <DataTable.Title numeric>{report.Likes}</DataTable.Title>
-                  <DataTable.Title numeric>{report.Dislikes}</DataTable.Title>
+                  <DataTable.Cell>{report.Pregunta}</DataTable.Cell>
+                  <DataTable.Cell >{report.Respuesta}</DataTable.Cell>
+                  <DataTable.Cell numeric>{report.Likes}</DataTable.Cell>
+                  <DataTable.Cell numeric>{report.Dislikes}</DataTable.Cell>
                 </DataTable.Row>
               ))}
             </DataTable>
@@ -75,7 +95,7 @@ class ShowReportsAndEdit extends React.Component {
             <View>
               <View style={MyStyles.sideIcon}>
                 <TextInput
-                  label="No. de Pregunta"
+                  label="Numero de Pregunta"
                   mode="outlined"
                   keyboardType="numeric"
                   style={MyStyles.input}
@@ -88,6 +108,7 @@ class ShowReportsAndEdit extends React.Component {
                 <TextInput
                   label="Pregunta"
                   mode="outlined"
+                  multiline
                   style={MyStyles.input}
                   value={this.state.Pregunta}
                   onChange={e => this.setState({ Pregunta: e.nativeEvent.text })}
@@ -105,6 +126,23 @@ class ShowReportsAndEdit extends React.Component {
                 />
               </View>
             </View>
+
+            <Button
+              icon="refresh"
+              mode="outlined"
+              style={MyStyles.btn}
+              onPress={this.sendToDB}
+            >
+              Refresh FAQs
+            </Button>
+
+            {this.state.loading && (
+              <ActivityIndicator
+                animating={true}
+                size={'large'}
+                color={Colors.red800}
+              />
+            )}
           </ScrollView>
         </View>
       </Fragment>
@@ -114,7 +152,7 @@ class ShowReportsAndEdit extends React.Component {
 
 const ContextWrapper = props => (
   <UserDataContext.Consumer>
-    {({ data }) => <ShowReportsAndEdit {...props} data={data} />}
+    {({ data }) => <FAQsEdit {...props} data={data} />}
   </UserDataContext.Consumer>
 )
 

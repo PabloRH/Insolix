@@ -4,7 +4,7 @@ import UserDataContext from '../App/UserDataContext'
 
 import ReportsUser from './ReportsUser'
 import ShowReportsAndEdit from './ShowReportsAndEdit'
-import FAQs from '../FAQs'
+import FAQs from '../FAQsEdit'
 
 const Reports = () => {
   return (

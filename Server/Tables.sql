@@ -67,5 +67,20 @@ INSERT INTO User(Name,User,Email,Password,Age,Residence,Gender,Profesion,Descrip
 	VALUES ('user','user','user@gmail.com','123',18,'Mexico','Na','Student','Hi','Usuario');
 
 INSERT INTO User(Name,User,Email,Password,Age,Residence,Gender,Profesion,Descrip,Type) 
-	VALUES ('Fotografo','foto','foto@gmail.com','123',18,'Mexico','Na','Student','Hi','Fotografo');	
+	VALUES ('Fotografo','foto','foto@gmail.com','123',18,'Mexico','Na','Student','Hi','Fotografo');
+
+	
+
+DROP TABLE IF EXISTS FAQs;
+CREATE TABLE FAQs (
+	IDPregu         INT AUTO_INCREMENT,
+	NoPregu       	INT,
+	Pregunta        VARCHAR(256),
+	Respuesta       VARCHAR(256),
+	Likes				    INT,
+	Dislikes	   	  INT,
+PRIMARY KEY(IDPregu),
+UNIQUE(IDPregu, NoPregu)
+);
+
 

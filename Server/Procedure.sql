@@ -140,3 +140,36 @@ CREATE PROCEDURE Operador (IN _fecha VARCHAR(65), IN _Nombre VARCHAR(65), IN _Ti
             WHERE NoReporte = _IDRepo;
     END //
 DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS GetFaq;
+DELIMITER //
+CREATE PROCEDURE GetFaq ()
+    BEGIN
+        SELECT * FROM FAQs;
+    END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS SetFaq;
+DELIMITER //
+CREATE PROCEDURE SetFaq (IN _NumeroPreg INT, IN _Preg VARCHAR(256), IN _Resp VARCHAR(256))
+    BEGIN
+        INSERT INTO FAQs(NoPregu, Pregunta, Respuesta)  
+            VALUES(
+                _NumeroPreg,
+                _Preg,
+                _Resp
+            );
+    END //
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS UpdatePreg;
+DELIMITER //
+CREATE PROCEDURE UpdatePreg (IN _NoPregu VARCHAR(65), IN _Pregunta VARCHAR(65), IN _Respuesta VARCHAR(65), IN _IDPregu INT)
+    BEGIN
+        UPDATE FAQs
+            SET NoPregu=_NoPregu, Pregunta=_Pregunta, Respuesta=_Respuesta
+            WHERE IDPregu = _IDPregu;
+    END //
+DELIMITER ;
+
