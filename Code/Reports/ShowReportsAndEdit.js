@@ -72,7 +72,7 @@ class ShowReportsAndEdit extends React.Component {
           <ScrollView contentContainerStyle={MyStyles.content}>
             <DataTable>
               <DataTable.Header>
-                <DataTable.Title numeric>Numero</DataTable.Title>
+                <DataTable.Title>Numero</DataTable.Title>
                 <DataTable.Title>Texto</DataTable.Title>
                 <DataTable.Title numeric>Id de Usuario</DataTable.Title>
               </DataTable.Header>
@@ -84,7 +84,7 @@ class ShowReportsAndEdit extends React.Component {
                     this.setState({ ...report })
                   }}
                 >
-                  <DataTable.Cell numeric>{report.NoReporte}</DataTable.Cell>
+                  <DataTable.Cell>{report.NoReporte}</DataTable.Cell>
                   <DataTable.Cell>{report.Reporte}</DataTable.Cell>
                   <DataTable.Cell numeric>{report.UserID}</DataTable.Cell>
                 </DataTable.Row>

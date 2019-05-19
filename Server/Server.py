@@ -47,8 +47,6 @@ def logIn():
         Der.close()
         return data
 
-
-
 @app.route('/SignUp', methods = ['Post'])
 def SignUp():
     Der = MySQLdb.connect(
@@ -94,7 +92,6 @@ def GetPhotos():
         DB.close()
         Der.close()
         return data
-
 
 @app.route('/upload_file', methods = ['POST'])
 def upload_file():
@@ -233,6 +230,26 @@ def GetReports():
         Der.close()
         return data
 
+
+@app.route('/GetReportsCerrados', methods = ['Post'])
+def GetReportsCerrados():
+    Der = MySQLdb.connect(
+        host       = 'PabloRosas.mysql.pythonanywhere-services.com',
+        user       = 'PabloRosas',
+        passwd   = 'xico2312252342',
+        db         = 'PabloRosas$Derbild',
+    )
+    Der.autocommit(True)
+    with Der.cursor(MySQLdb.cursors.DictCursor) as DB:
+
+        DB.callproc("GetReportsCerrados", )
+        row = DB.fetchall()
+        data= json.dumps(row)
+
+        DB.close()
+        Der.close()
+        return data
+
 @app.route('/GetMante', methods = ['Post'])
 def GetMante():
     Der = MySQLdb.connect(
@@ -280,3 +297,151 @@ def UpdateOpera():
         Der.close()
         return data
 
+@app.route('/GetPreg', methods = ['Post'])
+def GetPreg():
+    Der = MySQLdb.connect(
+        host       = 'PabloRosas.mysql.pythonanywhere-services.com',
+        user       = 'PabloRosas',
+        passwd   = 'xico2312252342',
+        db         = 'PabloRosas$Derbild',
+    )
+    Der.autocommit(True)
+    with Der.cursor(MySQLdb.cursors.DictCursor) as DB:
+
+        DB.callproc("GetFaq", )
+        row = DB.fetchall()
+        data= json.dumps(row)
+
+        DB.close()
+        Der.close()
+        return data
+
+@app.route('/SetPreg', methods = ['Post'])
+def SetPreg():
+    Der = MySQLdb.connect(
+        host       = 'PabloRosas.mysql.pythonanywhere-services.com',
+        user       = 'PabloRosas',
+        passwd   = 'xico2312252342',
+        db         = 'PabloRosas$Derbild',
+    )
+    Der.autocommit(True)
+    with Der.cursor(MySQLdb.cursors.DictCursor) as DB:
+        data = request.get_json(force=True)
+
+        NumPreg = data['NoPregu']
+        Preg = data['Pregunta']
+        Resp = data['Respuesta']
+        DB.callproc("SetFaq", [NumPreg, Preg, Resp])
+        row = DB.fetchall()
+        data= json.dumps(row)
+
+        DB.close()
+        Der.close()
+        return data
+
+@app.route('/UpdatePreg', methods = ['Post'])
+def UpdatePreg():
+    Der = MySQLdb.connect(
+        host       = 'PabloRosas.mysql.pythonanywhere-services.com',
+        user       = 'PabloRosas',
+        passwd   = 'xico2312252342',
+        db         = 'PabloRosas$Derbild',
+    )
+    Der.autocommit(True)
+    with Der.cursor(MySQLdb.cursors.DictCursor) as DB:
+        data = request.get_json(force=True)
+
+        NumPreg = data['NoPregu']
+        Preg = data['Pregunta']
+        Resp = data['Respuesta']
+        ID = data['IDPregu']
+        DB.callproc("UpdatePreg", [NumPreg, Preg, Resp, ID])
+        row = DB.fetchall()
+        data= json.dumps(row)
+
+        DB.close()
+        Der.close()
+        return data
+
+@app.route('/Like', methods = ['Post'])
+def Like():
+    Der = MySQLdb.connect(
+        host       = 'PabloRosas.mysql.pythonanywhere-services.com',
+        user       = 'PabloRosas',
+        passwd     = 'xico2312252342',
+        db         = 'PabloRosas$Derbild',
+    )
+    Der.autocommit(True)
+    with Der.cursor(MySQLdb.cursors.DictCursor) as DB:
+        data = request.get_json(force=True)
+        ID = data['IDPregu']
+        DB.callproc("LikePregunta", [ID])
+        row = DB.fetchall()
+        data= json.dumps(row)
+
+        DB.close()
+        Der.close()
+        return data
+
+@app.route('/Dislike', methods = ['Post'])
+def Dislike():
+    Der = MySQLdb.connect(
+        host       = 'PabloRosas.mysql.pythonanywhere-services.com',
+        user       = 'PabloRosas',
+        passwd     = 'xico2312252342',
+        db         = 'PabloRosas$Derbild',
+    )
+    Der.autocommit(True)
+    with Der.cursor(MySQLdb.cursors.DictCursor) as DB:
+        data = request.get_json(force=True)
+        ID = data['IDPregu']
+        DB.callproc("DislikePregunta", [ID])
+        row = DB.fetchall()
+        data= json.dumps(row)
+
+        DB.close()
+        Der.close()
+        return data
+
+@app.route('/AddQuestion', methods = ['Post'])
+def AddQuestion():
+    Der = MySQLdb.connect(
+        host       = 'PabloRosas.mysql.pythonanywhere-services.com',
+        user       = 'PabloRosas',
+        passwd     = 'xico2312252342',
+        db         = 'PabloRosas$Derbild',
+    )
+    Der.autocommit(True)
+    with Der.cursor(MySQLdb.cursors.DictCursor) as DB:
+        data = request.get_json(force=True)
+        NumPreg = data['NoPregu']
+        Preg = data['Pregunta']
+        Resp = data['Respuesta']
+
+        DB.callproc("InsertPreg", [NumPreg, Preg, Resp])
+        row = DB.fetchall()
+        data= json.dumps(row)
+
+        DB.close()
+        Der.close()
+        return data
+
+@app.route('/DeleteQuestion', methods = ['Post'])
+def DeleteQuestion():
+    Der = MySQLdb.connect(
+        host       = 'PabloRosas.mysql.pythonanywhere-services.com',
+        user       = 'PabloRosas',
+        passwd     = 'xico2312252342',
+        db         = 'PabloRosas$Derbild',
+    )
+    Der.autocommit(True)
+    with Der.cursor(MySQLdb.cursors.DictCursor) as DB:
+        data = request.get_json(force=True)
+        ID = data['IDPregu']
+        DB.callproc("DeletePreg", [ID])
+        row = DB.fetchall()
+        data= json.dumps(row)
+
+        DB.close()
+        Der.close()
+        return data

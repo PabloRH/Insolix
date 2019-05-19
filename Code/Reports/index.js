@@ -1,10 +1,12 @@
-import React from 'react'
+import React, { Fragment } from 'react'
+import { ScrollView } from 'react-native'
 
 import UserDataContext from '../App/UserDataContext'
 
 import ReportsUser from './ReportsUser'
 import ShowReportsAndEdit from './ShowReportsAndEdit'
 import FAQsEdit from '../FAQsEdit'
+import AddQuestion from '../AddQuestion'
 
 const Reports = () => {
   return (
@@ -25,7 +27,12 @@ const Reports = () => {
             return 'Administrador'
 
           case 'Editor':
-            return <FAQsEdit />
+            return (
+              <ScrollView>
+                <FAQsEdit />
+                <AddQuestion />
+              </ScrollView>
+            )
         }
       }}
     </UserDataContext.Consumer>

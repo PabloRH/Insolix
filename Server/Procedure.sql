@@ -123,6 +123,14 @@ CREATE PROCEDURE GetReports ()
     END //
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS GetReportsCerrados;
+DELIMITER //
+CREATE PROCEDURE GetReportsCerrados ()
+    BEGIN
+        SELECT * FROM Report WHERE Estado = "Cerrado";
+    END //
+DELIMITER ;
+
 DROP PROCEDURE IF EXISTS GetReportMante;
 DELIMITER //
 CREATE PROCEDURE GetReportMante ()
@@ -196,13 +204,30 @@ DELIMITER //
 CREATE PROCEDURE DislikePregunta (IN _IDPregu INT)
     BEGIN
         SET @counter := 0;
-        SELECT @counter := Likes
+        SELECT @counter := Dislikes
             FROM FAQs 
             WHERE IDPregu = _IDPregu;
 
         UPDATE FAQs
-            SET Likes = @counter - 1
+            SET Dislikes = @counter + 1
             WHERE IDPregu = _IDPregu;
     END //
 DELIMITER ;
 
+DROP PROCEDURE IF EXISTS InsertPreg;
+DELIMITER //
+CREATE PROCEDURE InsertPreg (IN _NoPregu VARCHAR(65), IN _Pregunta VARCHAR(65), IN _Respuesta VARCHAR(65))
+    BEGIN
+        INSERT INTO FAQs (NoPregu, Pregunta, Respuesta, Likes, Dislikes)
+            VALUES (_NoPregu, _Pregunta,_Respuesta, 0, 0);
+    END //
+DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS DeletePreg;
+DELIMITER //
+CREATE PROCEDURE DeletePreg (IN _IDPregu INT)
+    BEGIN
+        DELETE FROM FAQs WHERE IDPregu = _IDPregu;
+    END //
+DELIMITER ;

@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 
-import { List, ActivityIndicator, Colors } from 'react-native-paper'
-import { Button, View, ScrollView } from 'react-native'
+import { IconButton, List, ActivityIndicator, Colors } from 'react-native-paper'
+import { Alert, View, Text, ScrollView } from 'react-native'
 
 import MyHeader from './Header'
 import MyStyles from './Styles'
@@ -40,7 +40,76 @@ class ShowReportsAndEdit extends React.Component {
         />
 
         <View style={{ marginBottom: 85 }}>
-          <ScrollView contentContainerStyle={MyStyles.content}>
+          <ScrollView>
+            <List.Section title="Preguntas y Respuestas">
+              {this.state.questions.map(question => {
+                const onceUp = () => {
+                  if (onceUp.done) return
+                  const options = {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ IDPregu: question.IDPregu }),
+                  }
+                  fetch('http://pablorosas.pythonanywhere.com/Like', options)
+                  onceUp.done = true
+                }
+
+                const onceDown = () => {
+                  if (onceDown.done) return
+                  const options = {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ IDPregu: question.IDPregu }),
+                  }
+                  fetch('http://pablorosas.pythonanywhere.com/Dislike', options)
+                  onceDown.done = true
+                }
+
+                return (
+                  <List.Accordion
+                    key={question.IDPregu}
+                    title={question.Pregunta}
+                    left={props => (
+                      <IconButton {...props} icon="question-answer" />
+                    )}
+                  >
+                    <List.Item
+                      title="+"
+                      onPress={() => Alert.alert('Pregunta', question.Pregunta)}
+                      left={props => <IconButton {...props} icon="more" />}
+                    />
+                    <List.Item
+                      left={props => (
+                        <IconButton
+                          {...props}
+                          icon="question-answer"
+                          onPress={() =>
+                            Alert.alert('Respuesta', question.Pregunta)
+                          }
+                        />
+                      )}
+                      title={`${question.Respuesta}`}
+                      right={props => (
+                        <Fragment>
+                          <IconButton
+                            {...props}
+                            onPress={onceUp}
+                            icon="thumb-up"
+                          />
+                          <Text>{` `}</Text>
+                          <IconButton
+                            {...props}
+                            onPress={onceDown}
+                            icon="thumb-down"
+                          />
+                        </Fragment>
+                      )}
+                    />
+                  </List.Accordion>
+                )
+              })}
+            </List.Section>
+
             {this.state.loading && (
               <ActivityIndicator
                 animating={true}
@@ -48,23 +117,6 @@ class ShowReportsAndEdit extends React.Component {
                 color={Colors.red800}
               />
             )}
-
-            <List.Section title="Preguntas y Respuestas">
-              {this.state.questions.map(question => (
-                <List.Accordion
-                  key={question.IDPregu}
-                  title={question.Pregunta}
-                  left={props => <List.Icon {...props} icon="question" />}
-                >
-                  <List.Item
-                    title={`Respuesta:
-                    ${question.Respuesta}`}
-                  />
-                  <List.Item title={`Likes: ${question.Like}`} />
-                  <List.Item title={`Dislikes: ${question.Dislikes}`} />
-                </List.Accordion>
-              ))}
-            </List.Section>
           </ScrollView>
         </View>
       </Fragment>
