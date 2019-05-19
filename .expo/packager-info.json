@@ -2,8 +2,8 @@
   "expoServerPort": 19000,
   "expoServerNgrokUrl": "https://tx-ivv.pablorh.t2.exp.direct",
   "packagerNgrokUrl": "https://packager.tx-ivv.pablorh.t2.exp.direct",
-  "ngrokPid": 40252,
+  "ngrokPid": 41294,
   "devToolsPort": 19002,
   "packagerPort": 19003,
-  "packagerPid": 40220
+  "packagerPid": 41275
 }

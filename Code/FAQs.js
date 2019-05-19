@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 
-import { List } from 'react-native-paper'
-import { View, ScrollView } from 'react-native'
+import { List, ActivityIndicator, Colors } from 'react-native-paper'
+import { Button, View, ScrollView } from 'react-native'
 
 import MyHeader from './Header'
 import MyStyles from './Styles'
@@ -38,16 +38,30 @@ class ShowReportsAndEdit extends React.Component {
           link="/"
           hasSetting
         />
+
         <View style={{ marginBottom: 85 }}>
           <ScrollView contentContainerStyle={MyStyles.content}>
-            <List.Section title="Accordions">
+            {this.state.loading && (
+              <ActivityIndicator
+                animating={true}
+                size={'large'}
+                color={Colors.red800}
+              />
+            )}
+
+            <List.Section title="Preguntas y Respuestas">
               {this.state.questions.map(question => (
                 <List.Accordion
+                  key={question.IDPregu}
                   title={question.Pregunta}
                   left={props => <List.Icon {...props} icon="question" />}
                 >
-                  <List.Item title={question.Respuesta} />
-                  <List.Item title="Second item" />
+                  <List.Item
+                    title={`Respuesta:
+                    ${question.Respuesta}`}
+                  />
+                  <List.Item title={`Likes: ${question.Like}`} />
+                  <List.Item title={`Dislikes: ${question.Dislikes}`} />
                 </List.Accordion>
               ))}
             </List.Section>

@@ -77,8 +77,8 @@ CREATE TABLE FAQs (
 	NoPregu       	INT,
 	Pregunta        VARCHAR(256),
 	Respuesta       VARCHAR(256),
-	Likes				    INT,
-	Dislikes	   	  INT,
+	Likes				    INT NOT NULL,
+	Dislikes	   	  INT NOT NULL,
 PRIMARY KEY(IDPregu),
 UNIQUE(IDPregu, NoPregu)
 );

@@ -173,3 +173,36 @@ CREATE PROCEDURE UpdatePreg (IN _NoPregu VARCHAR(65), IN _Pregunta VARCHAR(65), 
     END //
 DELIMITER ;
 
+
+DROP PROCEDURE IF EXISTS LikePregunta;
+DELIMITER //
+CREATE PROCEDURE LikePregunta (IN _IDPregu INT)
+    BEGIN
+        SET @counter := 0;
+        SELECT @counter := Likes
+            FROM FAQs 
+            WHERE IDPregu = _IDPregu;
+
+        UPDATE FAQs
+            SET Likes = @counter + 1
+            WHERE IDPregu = _IDPregu;
+    END //
+DELIMITER ;
+
+
+
+DROP PROCEDURE IF EXISTS DislikePregunta;
+DELIMITER //
+CREATE PROCEDURE DislikePregunta (IN _IDPregu INT)
+    BEGIN
+        SET @counter := 0;
+        SELECT @counter := Likes
+            FROM FAQs 
+            WHERE IDPregu = _IDPregu;
+
+        UPDATE FAQs
+            SET Likes = @counter - 1
+            WHERE IDPregu = _IDPregu;
+    END //
+DELIMITER ;
+
