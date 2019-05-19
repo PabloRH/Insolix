@@ -91,7 +91,6 @@ class Catalog extends React.Component {
           }
         }, []);
 
-        console.log(newPhotosUnique)
         this.setState({ Photos: newPhotosUnique, refreshing: false })
       })
   }
@@ -116,7 +115,6 @@ class Catalog extends React.Component {
             }
           >
             {this.state.Photos.map(({ uri, name }) => {
-              Image.getSize(uri, (a, b) => console.log(a + ' ' + b))
               return (
                 <Card key={uri} elevation={2} style={{ margin: 9 }}>
                   <Card.Title

@@ -17,7 +17,6 @@ class Gallery extends React.Component {
   alLeastOne = false
 
   getLatestPhotos = (pliss) => {
-    console.log("Getting them")
     if (this.alLeastOne && this.props.loaderState.getValue() == false) return
 
     this.setState({ refreshing: true })
@@ -39,8 +38,6 @@ class Gallery extends React.Component {
       body: JSON.stringify({ id }),
     }
 
-    console.log({options})
-
     fetch('http://pablorosas.pythonanywhere.com/GetPhotos', options)
       .then(response => {
         this.setState({ refreshing: false })
@@ -49,16 +46,12 @@ class Gallery extends React.Component {
         else alert('Algo fue mal con el servidor')
       })
       .then(newPhotos => {
-        console.log(newPhotos)
-
         if (newPhotos == null) return
 
         const myPhotos = newPhotos.map(photo => myURL + photo.HashID)
         newPhotosUnique = [...myPhotos, ...this.state.Photos].filter(
           (photo, index, self) => self.indexOf(photo) === index,
         )
-
-        console.log(newPhotosUnique)
         this.setState({ Photos: newPhotosUnique, refreshing: false })
       })
   }

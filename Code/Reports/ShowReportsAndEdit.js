@@ -14,7 +14,6 @@ class ShowReportsAndEdit extends React.Component {
   state = { reports: [] }
 
   componentDidMount() {
-    console.log(this.props.data)
     this.setState({ loading: true })
 
     const options = {
@@ -46,8 +45,6 @@ class ShowReportsAndEdit extends React.Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data),
     }
-
-    console.log(options)
 
     fetch('http://pablorosas.pythonanywhere.com/UpdateOpera', options)
       .then(response => {

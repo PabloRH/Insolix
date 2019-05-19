@@ -56,6 +56,23 @@ class FAQsEdit extends React.Component {
     this.setState({ loading: true })
   }
 
+  updateReport = () => {
+    const questions = this.state.questions.map(question => {
+      if (question.IDPregu !== this.state.IDPregu) return question
+
+      return {
+        ...question,
+        NoPregu: this.state.NoPregu,
+        Pregunta: this.state.Pregunta,
+        Respuesta: this.state.Respuesta
+      }
+
+    })
+
+    console.log(questions)
+    this.setState({questions})
+  }
+
   render() {
     return (
       <Fragment>
@@ -70,30 +87,34 @@ class FAQsEdit extends React.Component {
             <DataTable>
               <DataTable.Header>
                 <DataTable.Title>Pregunta</DataTable.Title>
-                <DataTable.Title >Respuesta</DataTable.Title>
+                <DataTable.Title>Respuesta</DataTable.Title>
                 <DataTable.Title numeric>Likes</DataTable.Title>
                 <DataTable.Title numeric>Dislikes</DataTable.Title>
                 <DataTable.Title numeric>#</DataTable.Title>
               </DataTable.Header>
 
-              {this.state.questions.map(question => {
-                console.log(question)
-                return (
-                  <DataTable.Row
-                    key={question.IDPregu}
-                    onPress={() => {
-                      this.setState({ ...question })
-                    }}
-                  >
-                    <DataTable.Cell>{question.Pregunta}</DataTable.Cell>
-                    <DataTable.Cell >{question.Respuesta}</DataTable.Cell>
-                    <DataTable.Cell numeric>{question.Likes}</DataTable.Cell>
-                    <DataTable.Cell numeric>{question.Dislikes}</DataTable.Cell>
-                    <DataTable.Cell numeric>{question.NoPregu}</DataTable.Cell>
-                  </DataTable.Row>
-                )
-              }
-              )}
+              {[...this.state.questions]
+                .sort(question => -question.NoPregu)
+                .map(question => {
+                  return (
+                    <DataTable.Row
+                      key={question.IDPregu}
+                      onPress={() => {
+                        this.setState({ ...question })
+                      }}
+                    >
+                      <DataTable.Cell>{question.Pregunta}</DataTable.Cell>
+                      <DataTable.Cell>{question.Respuesta}</DataTable.Cell>
+                      <DataTable.Cell numeric>{question.Likes}</DataTable.Cell>
+                      <DataTable.Cell numeric>
+                        {question.Dislikes}
+                      </DataTable.Cell>
+                      <DataTable.Cell numeric>
+                        {question.NoPregu}
+                      </DataTable.Cell>
+                    </DataTable.Row>
+                  )
+                })}
             </DataTable>
 
             <View>
@@ -115,7 +136,9 @@ class FAQsEdit extends React.Component {
                   multiline
                   style={MyStyles.input}
                   value={this.state.Pregunta}
-                  onChange={e => this.setState({ Pregunta: e.nativeEvent.text })}
+                  onChange={e =>
+                    this.setState({ Pregunta: e.nativeEvent.text })
+                  }
                 />
               </View>
 
@@ -126,7 +149,9 @@ class FAQsEdit extends React.Component {
                   multiline
                   style={MyStyles.input}
                   value={this.state.Respuesta}
-                  onChange={e => this.setState({ Respuesta: e.nativeEvent.text })}
+                  onChange={e =>
+                    this.setState({ Respuesta: e.nativeEvent.text })
+                  }
                 />
               </View>
             </View>
@@ -135,7 +160,10 @@ class FAQsEdit extends React.Component {
               icon="refresh"
               mode="outlined"
               style={MyStyles.btn}
-              onPress={this.sendToDB}
+              onPress={() => {
+                this.sendToDB()
+                this.updateReport()
+              }}
             >
               Refresh FAQs
             </Button>

@@ -1,8 +1,6 @@
 import React, { Fragment } from 'react'
-import { Button } from 'react-native-paper'
 
-import { DataTable } from 'react-native-paper'
-import { TextInput, Text } from 'react-native-paper'
+import { List } from 'react-native-paper'
 import { View, ScrollView } from 'react-native'
 
 import MyHeader from './Header'
@@ -11,10 +9,9 @@ import MyStyles from './Styles'
 import UserDataContext from './App/UserDataContext'
 
 class ShowReportsAndEdit extends React.Component {
-  state = { reports: [] }
+  state = { questions: [] }
 
   componentDidMount() {
-    console.log(this.props.data)
     this.setState({ loading: true })
 
     const options = {
@@ -22,20 +19,14 @@ class ShowReportsAndEdit extends React.Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({}),
     }
-
-    fetch('http://pablorosas.pythonanywhere.com/GetFaq', options)
+    fetch('http://pablorosas.pythonanywhere.com/GetPreg', options)
       .then(response => {
         this.setState({ loading: false })
 
         if (response.ok) return response.json()
         else alert('Algo fue mal con el servidor')
       })
-      .then(reports => {
-        if (this.props.data.Type === 'Ing. Mantenimiento') {
-          const result = reports.filter(r => r.Tipo === 'Mantenimiento')
-          this.setState({ reports: result, ...result[0] })
-        } else this.setState({ reports, ...reports[0] })
-      })
+      .then(questions => this.setState({ questions }))
   }
 
   render() {
@@ -49,62 +40,17 @@ class ShowReportsAndEdit extends React.Component {
         />
         <View style={{ marginBottom: 85 }}>
           <ScrollView contentContainerStyle={MyStyles.content}>
-            <DataTable>
-              <DataTable.Header>
-                <DataTable.Title numeric>No. Pregunta</DataTable.Title>
-                <DataTable.Title>Pregunta</DataTable.Title>
-                <DataTable.Title numeric>Likes</DataTable.Title>
-                <DataTable.Title numeric>Dislikes</DataTable.Title>
-              </DataTable.Header>
-
-              {this.state.reports.map(report => (
-                <DataTable.Row
-                  key={report.NoPregu}
-                  onPress={() => {
-                    this.setState({ ...report })
-                  }}
+            <List.Section title="Accordions">
+              {this.state.questions.map(question => (
+                <List.Accordion
+                  title={question.Pregunta}
+                  left={props => <List.Icon {...props} icon="question" />}
                 >
-                  <DataTable.Cell numeric>{report.NoPregu}</DataTable.Cell>
-                  <DataTable.Cell>{report.Reporte}</DataTable.Cell>
-                  <DataTable.Title numeric>{report.Likes}</DataTable.Title>
-                  <DataTable.Title numeric>{report.Dislikes}</DataTable.Title>
-                </DataTable.Row>
+                  <List.Item title={question.Respuesta} />
+                  <List.Item title="Second item" />
+                </List.Accordion>
               ))}
-            </DataTable>
-
-            <View>
-              <View style={MyStyles.sideIcon}>
-                <TextInput
-                  label="No. de Pregunta"
-                  mode="outlined"
-                  keyboardType="numeric"
-                  style={MyStyles.input}
-                  value={this.state.NoPregu}
-                  onChange={e => this.setState({ NoPregu: e.nativeEvent.text })}
-                />
-              </View>
-
-              <View style={MyStyles.sideIcon}>
-                <TextInput
-                  label="Pregunta"
-                  mode="outlined"
-                  style={MyStyles.input}
-                  value={this.state.Pregunta}
-                  onChange={e => this.setState({ Pregunta: e.nativeEvent.text })}
-                />
-              </View>
-
-              <View style={MyStyles.sideIcon}>
-                <TextInput
-                  label="Respuesta"
-                  mode="outlined"
-                  multiline
-                  style={MyStyles.input}
-                  value={this.state.Respuesta}
-                  onChange={e => this.setState({ Respuesta: e.nativeEvent.text })}
-                />
-              </View>
-            </View>
+            </List.Section>
           </ScrollView>
         </View>
       </Fragment>
