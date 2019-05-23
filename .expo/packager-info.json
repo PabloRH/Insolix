@@ -1,10 +1,10 @@
 {
-  "expoServerPort": 19000,
-  "expoServerNgrokUrl": "https://tx-ivv.pablorh.t2.exp.direct",
-  "packagerNgrokUrl": "https://packager.tx-ivv.pablorh.t2.exp.direct",
-  "ngrokPid": 2598,
+  "expoServerPort": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null,
   "devToolsPort": 19002,
-  "packagerPort": 19001,
-  "packagerPid": 2590,
+  "packagerPort": null,
+  "packagerPid": null,
   "webpackServerPort": null
 }

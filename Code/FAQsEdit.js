@@ -3,7 +3,7 @@ import { Button } from 'react-native-paper'
 
 import { Colors, ActivityIndicator, DataTable } from 'react-native-paper'
 import { TextInput } from 'react-native-paper'
-import { View, ScrollView, Picker } from 'react-native'
+import { View, ScrollView, RefreshControl } from 'react-native'
 
 import MyHeader from './Header'
 import MyStyles from './Styles'
@@ -27,9 +27,12 @@ class FAQsEdit extends React.Component {
       .then(response => {
         this.setState({ loading: false })
         if (response.ok) return response.json()
-        else alert('Algo fue mal con el ')
+        else {
+          alert('Algo fue mal con el ')
+          this.setState({ loading: false })
+        }
       })
-      .then(questions => this.setState({ questions }))
+      .then(questions => this.setState({ questions, loading: false }))
   }
 
   sendToDB = () => {
@@ -47,7 +50,15 @@ class FAQsEdit extends React.Component {
       .then(response => {
         this.setState({ loading: false })
 
-        if (response.ok) return response.json()
+        if (response.ok) {
+          ToastAndroid.showWithGravityAndOffset(
+            'Guardado Exitoso',
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM,
+            25,
+            50,
+          );
+          return response.json()}
         else alert('Algo fue mal con el servidor')
       })
       .then(() => {
@@ -91,7 +102,12 @@ class FAQsEdit extends React.Component {
           link="/"
           hasSetting
         />
-        <View style={{ marginBottom: 85 }}>
+        <ScrollView style={{ marginBottom: 85 }} refreshControl={
+          <RefreshControl
+            refreshing={this.state.loading}
+            onRefresh={() => this.componentDidMount()}
+          />
+        }>
           <DataTable>
             <DataTable.Header>
               <DataTable.Title>Pregunta</DataTable.Title>
@@ -188,7 +204,7 @@ class FAQsEdit extends React.Component {
               color={Colors.red800}
             />
           )}
-        </View>
+        </ScrollView>
       </Fragment>
     )
   }

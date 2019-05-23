@@ -3,7 +3,7 @@ import { Button } from 'react-native-paper'
 
 import { Colors, ActivityIndicator, DataTable } from 'react-native-paper'
 import { TextInput, Text } from 'react-native-paper'
-import { View, ScrollView, Picker, ToastAndroid } from 'react-native'
+import { View, ScrollView, RefreshControl, Picker, ToastAndroid } from 'react-native'
 
 import MyHeader from '../Header'
 import MyStyles from '../Styles'
@@ -24,27 +24,30 @@ class ShowReportsAndEdit extends React.Component {
 
     fetch('http://pablorosas.pythonanywhere.com/GetReports', options)
       .then(response => {
-        this.setState({ loading: false })
 
         if (response.ok) return response.json()
-        else alert('Algo fue mal con el servidor')
+        else {
+          alert('Algo fue mal con el servidor')
+          this.setState({ loading: false })
+        }
       })
       .then(reports => {
+        console.log({reports})
         if (this.props.data.Type === 'Programador') {
           const result = reports.filter(r => r.AsigID == 5)
-          this.setState({ reports: result, ...result[0] })
+          this.setState({ reports: result, ...result[0], loading: false })
         }
         else if (this.props.data.Type === 'Ing. Soporte') {
           const result = reports.filter(r => r.AsigID == 2)
-          this.setState({ reports: result, ...result[0] })
+          this.setState({ reports: result, ...result[0], loading: false })
         }
         else if (this.props.data.Type === 'Programador' || this.props.data.Type === 'Gerente Mantenimiento') {
           const result = reports.filter(r => r.Tipo === 'Mantenimiento')
-          this.setState({ reports: result, ...result[0] })
+          this.setState({ reports: result, ...result[0], loading: false })
         } 
         else {
           const result = reports.filter(r => r.Tipo != 'Mantenimiento')
-          this.setState({ reports: result, ...result[0] })
+          this.setState({ reports: result, ...result[0], loading: false })
         }
       })
       
@@ -90,7 +93,14 @@ class ShowReportsAndEdit extends React.Component {
           hasSetting
         />
         <View style={{ marginBottom: 85 }}>
-          <ScrollView contentContainerStyle={MyStyles.content}>
+          <ScrollView contentContainerStyle={MyStyles.content}
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.loading}
+              onRefresh={() => this.componentDidMount()}
+            />
+          }
+          >
             <DataTable>
               <DataTable.Header>
                 <DataTable.Title>Numero</DataTable.Title>

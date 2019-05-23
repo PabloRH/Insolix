@@ -1,7 +1,7 @@
 import React, { Fragment } from 'react'
 
 import { IconButton, List, ActivityIndicator, Colors } from 'react-native-paper'
-import { Alert, View, Text, ScrollView } from 'react-native'
+import { Alert, View, Text, ScrollView, RefreshControl } from 'react-native'
 
 import MyHeader from './Header'
 import MyStyles from './Styles'
@@ -21,12 +21,14 @@ class ShowReportsAndEdit extends React.Component {
     }
     fetch('http://pablorosas.pythonanywhere.com/GetPreg', options)
       .then(response => {
-        this.setState({ loading: false })
 
         if (response.ok) return response.json()
-        else alert('Algo fue mal con el servidor')
+        else {
+          alert('Algo fue mal con el servidor')
+          this.setState({ loading: false })
+        }
       })
-      .then(questions => this.setState({ questions }))
+      .then(questions => this.setState({ questions, loading: false }))
   }
 
   render() {
@@ -40,7 +42,14 @@ class ShowReportsAndEdit extends React.Component {
         />
 
         <View style={{ marginBottom: 85 }}>
-          <ScrollView>
+          <ScrollView
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.loading}
+                onRefresh={() => this.componentDidMount()}
+              />
+            }
+          >
             <List.Section title="Preguntas y Respuestas">
               {this.state.questions.map(question => {
                 const onceUp = () => {
