@@ -10,7 +10,7 @@ CREATE TABLE User (
 	Gender              VARCHAR(15),
 	Profesion           VARCHAR(20),
 	Descrip             VARCHAR(256),
-  Type      	        ENUM('Usuario', 'Administrador','Fotografo','Editor','Operador','Ing. Soporte','Gerente Soporte','Ing. Mantenimiento', 'Gerente Mantenimiento') NOT NULL, 
+  Type      	        ENUM('Usuario', 'Administrador','Fotografo','Editor','Operador','Ing. Soporte','Gerente Soporte','Programador', 'Gerente Mantenimiento') NOT NULL, 
 	PRIMARY KEY(ID),
 	UNIQUE(Email, User)
 );
@@ -55,7 +55,7 @@ INSERT INTO User(Name,User,Email,Password,Age,Residence,Gender,Profesion,Descrip
 	VALUES ('Fer','Fernanda','Fernan@gmail.com','123',18,'Mexico','Female','Student','Hi','Gerente Mantenimiento');
 
 INSERT INTO User(Name,User,Email,Password,Age,Residence,Gender,Profesion,Descrip,Type) 
-	VALUES ('Oscar','Osc','Oscar@gmail.com','123',18,'Mexico','Male','Student','Hi','Ing. Mantenimiento');
+	VALUES ('Oscar','Osc','Oscar@gmail.com','123',18,'Mexico','Male','Student','Hi','Programador');
 
 INSERT INTO User(Name,User,Email,Password,Age,Residence,Gender,Profesion,Descrip,Type) 
 	VALUES ('Leslie','Les','Leslie@gmail.com','123',18,'Mexico','Female','Student','Hi','Operador');
@@ -83,4 +83,9 @@ PRIMARY KEY(IDPregu),
 UNIQUE(IDPregu, NoPregu)
 );
 
+
+DROP TABLE IF EXISTS Report;
+DROP TABLE IF EXISTS FAQs;
+DROP TABLE IF EXISTS Photo;
+DROP TABLE IF EXISTS User;
 

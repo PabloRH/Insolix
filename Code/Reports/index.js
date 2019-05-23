@@ -19,7 +19,7 @@ const Reports = () => {
           case 'Operador':
           case 'Gerente Soporte':
           case 'Ing. Soporte':
-          case 'Ing. Mantenimiento':
+          case 'Programador':
           case 'Gerente Mantenimiento':
             return <ShowReportsAndEdit />
 

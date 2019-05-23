@@ -30,7 +30,7 @@ class ShowReportsAndEdit extends React.Component {
         else alert('Algo fue mal con el servidor')
       })
       .then(reports => {
-        if (this.props.data.Type === 'Ing. Mantenimiento') {
+        if (this.props.data.Type === 'Programador' || this.props.data.Type === 'Gerente Mantenimiento') {
           const result = reports.filter(r => r.Tipo === 'Mantenimiento')
           this.setState({ reports: result, ...result[0] })
         } else this.setState({ reports, ...reports[0] })
@@ -117,7 +117,7 @@ class ShowReportsAndEdit extends React.Component {
                 style={MyStyles.input}
                 selectedValue={this.state.Tipo}
                 enabled={
-                  this.props.data.Type !== 'Ing. Mantenimiento' &&
+                  this.props.data.Type !== 'Programador' &&
                   this.props.data.Type !== 'Gerente Mantenimiento'
                 }
                 onValueChange={itemValue => this.setState({ Tipo: itemValue })}
@@ -151,11 +151,13 @@ class ShowReportsAndEdit extends React.Component {
                   }
                 >
                   <Picker.Item label="Gerente Fernanda" value={4} />
-                  <Picker.Item label="Ing Oscar" value={5} />
+                  <Picker.Item label="Programador Oscar" value={5} />
                 </Picker>
               )}
 
-              {this.props.data.Type === 'Gerente Soporte' && (
+              {this.props.data.Type === 'Ing. Soporte' ||
+              this.props.data.Type === 'Gerente Soporte' ||
+              this.props.data.Type === 'Ing. Soporte' && (
                 <Picker
                   style={MyStyles.input}
                   selectedValue={this.state.Estado}
@@ -165,13 +167,14 @@ class ShowReportsAndEdit extends React.Component {
                 >
                   <Picker.Item label="Abierto" value="Abierto" />
                   <Picker.Item label="Cerrado" value="Cerrado" />
+                  <Picker.Item label="Pendiente" value="Pendiente" />
                 </Picker>
               )}
 
               {(this.props.data.Type === 'Gerente Soporte' ||
                 this.props.data.Type === 'Ing. Soporte' ||
                 this.props.data.Type === 'Gerente Mantenimiento' ||
-                this.props.data.Type === 'Ing. Mantenimiento') && (
+                this.props.data.Type === 'Programador') && (
                 <View style={MyStyles.sideIcon}>
                   <TextInput
                     label="Respuesta"
