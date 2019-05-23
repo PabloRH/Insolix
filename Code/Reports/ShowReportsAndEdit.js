@@ -2,8 +2,8 @@ import React, { Fragment } from 'react'
 import { Button } from 'react-native-paper'
 
 import { Colors, ActivityIndicator, DataTable } from 'react-native-paper'
-import { TextInput } from 'react-native-paper'
-import { View, ScrollView, Picker } from 'react-native'
+import { TextInput, Text } from 'react-native-paper'
+import { View, ScrollView, Picker, ToastAndroid } from 'react-native'
 
 import MyHeader from '../Header'
 import MyStyles from '../Styles'
@@ -30,11 +30,24 @@ class ShowReportsAndEdit extends React.Component {
         else alert('Algo fue mal con el servidor')
       })
       .then(reports => {
-        if (this.props.data.Type === 'Programador' || this.props.data.Type === 'Gerente Mantenimiento') {
+        if (this.props.data.Type === 'Programador') {
+          const result = reports.filter(r => r.AsigID == 5)
+          this.setState({ reports: result, ...result[0] })
+        }
+        else if (this.props.data.Type === 'Ing. Soporte') {
+          const result = reports.filter(r => r.AsigID == 2)
+          this.setState({ reports: result, ...result[0] })
+        }
+        else if (this.props.data.Type === 'Programador' || this.props.data.Type === 'Gerente Mantenimiento') {
           const result = reports.filter(r => r.Tipo === 'Mantenimiento')
           this.setState({ reports: result, ...result[0] })
-        } else this.setState({ reports, ...reports[0] })
+        } 
+        else {
+          const result = reports.filter(r => r.Tipo != 'Mantenimiento')
+          this.setState({ reports: result, ...result[0] })
+        }
       })
+      
   }
 
   sendToDB = () => {
@@ -50,7 +63,15 @@ class ShowReportsAndEdit extends React.Component {
       .then(response => {
         this.setState({ loading: false })
 
-        if (response.ok) return response.json()
+        if (response.ok) {
+          ToastAndroid.showWithGravityAndOffset(
+            'Guardado Exitoso',
+            ToastAndroid.LONG,
+            ToastAndroid.BOTTOM,
+            25,
+            50,
+          );
+          return response.json()}
         else alert('Algo fue mal con el servidor')
       })
       .then(() => {
@@ -155,8 +176,7 @@ class ShowReportsAndEdit extends React.Component {
                 </Picker>
               )}
 
-              {this.props.data.Type === 'Ing. Soporte' ||
-              this.props.data.Type === 'Gerente Soporte' ||
+              {this.props.data.Type === 'Programador' ||
               this.props.data.Type === 'Ing. Soporte' && (
                 <Picker
                   style={MyStyles.input}
@@ -171,9 +191,7 @@ class ShowReportsAndEdit extends React.Component {
                 </Picker>
               )}
 
-              {(this.props.data.Type === 'Gerente Soporte' ||
-                this.props.data.Type === 'Ing. Soporte' ||
-                this.props.data.Type === 'Gerente Mantenimiento' ||
+              {(this.props.data.Type === 'Ing. Soporte' ||
                 this.props.data.Type === 'Programador') && (
                 <View style={MyStyles.sideIcon}>
                   <TextInput
@@ -189,16 +207,22 @@ class ShowReportsAndEdit extends React.Component {
                 </View>
               )}
 
+              {(this.props.data.Type === 'Gerente Soporte' ||
+                this.props.data.Type === 'Ing. Soporte' ||
+                this.props.data.Type === 'Gerente Mantenimiento' ||
+                this.props.data.Type === 'Programador') && (
               <View style={MyStyles.sideIcon}>
                 <TextInput
                   label="Reporte"
                   mode="outlined"
                   multiline
+                  disabled
                   style={MyStyles.input}
                   value={this.state.Reporte}
                   onChange={e => this.setState({ Reporte: e.nativeEvent.text })}
                 />
               </View>
+                )}
             </View>
 
             <Button
