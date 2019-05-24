@@ -445,3 +445,29 @@ def DeleteQuestion():
         DB.close()
         Der.close()
         return data
+
+@app.route('/AddReport', methods = ['Post'])
+def AddReport():
+    Der = MySQLdb.connect(
+        host       = 'PabloRosas.mysql.pythonanywhere-services.com',
+        user       = 'PabloRosas',
+        passwd   = 'xico2312252342',
+        db         = 'PabloRosas$Derbild',
+    )
+    Der.autocommit(True)
+    with Der.cursor(MySQLdb.cursors.DictCursor) as DB:
+        data = request.get_json(force=True)
+
+        Fecha = data['Fecha']
+        Nombre = data['Nombre']
+        Tipo = 'Mantenimiento'
+        Reporte = data['Reporte']
+        ID = data['id']
+        Estado = data['Estado']
+        DB.callproc("AddReport", [ID, Tipo, Reporte, Fecha, Nombre, Estado])
+        row = DB.fetchone()
+        data= json.dumps(row)
+
+        DB.close()
+        Der.close()
+        return data
