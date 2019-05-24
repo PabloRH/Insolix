@@ -7,6 +7,7 @@ import ReportsUser from './ReportsUser'
 import ShowReportsAndEdit from './ShowReportsAndEdit'
 import FAQsEdit from '../FAQsEdit'
 import AddQuestion from '../AddQuestion'
+import AddReport from './AddReport'
 
 const Reports = () => {
   return (
@@ -21,7 +22,12 @@ const Reports = () => {
           case 'Ing. Soporte':
           case 'Programador':
           case 'Gerente Mantenimiento':
-            return <ShowReportsAndEdit />
+            return (
+              <ScrollView>
+                <ShowReportsAndEdit />
+                <AddReport />
+              </ScrollView>
+            )
 
           case 'Administrador':
             return 'Administrador'

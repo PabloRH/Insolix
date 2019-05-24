@@ -186,8 +186,7 @@ class ShowReportsAndEdit extends React.Component {
                 </Picker>
               )}
 
-              {this.props.data.Type === 'Programador' ||
-              this.props.data.Type === 'Ing. Soporte' && (
+              {this.props.data.Type === 'Ing. Soporte' && (
                 <Picker
                   style={MyStyles.input}
                   selectedValue={this.state.Estado}
@@ -198,6 +197,21 @@ class ShowReportsAndEdit extends React.Component {
                   <Picker.Item label="Abierto" value="Abierto" />
                   <Picker.Item label="Cerrado" value="Cerrado" />
                   <Picker.Item label="Pendiente" value="Pendiente" />
+                </Picker>
+              )}
+
+              {this.props.data.Type === 'Programador' && (
+                <Picker
+                  style={MyStyles.input}
+                  selectedValue={this.state.Estado}
+                  onValueChange={itemValue =>
+                    this.setState({ Estado: itemValue })
+                  }
+                >
+                  <Picker.Item label="Abierto" value="Abierto" />
+                  <Picker.Item label="Cerrado" value="Cerrado" />
+                  <Picker.Item label="Pendiente" value="Pendiente" />
+                  <Picker.Item label="Solucionado" value="Solucionado" />
                 </Picker>
               )}
 
@@ -250,7 +264,8 @@ class ShowReportsAndEdit extends React.Component {
                 size={'large'}
                 color={Colors.red800}
               />
-            )}
+              )}
+
           </ScrollView>
         </View>
       </Fragment>

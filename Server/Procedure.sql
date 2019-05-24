@@ -231,3 +231,20 @@ CREATE PROCEDURE DeletePreg (IN _IDPregu INT)
         DELETE FROM FAQs WHERE IDPregu = _IDPregu;
     END //
 DELIMITER ;
+
+
+DROP PROCEDURE IF EXISTS AddReport;
+DELIMITER //
+CREATE PROCEDURE AddReport (IN _ID INT, IN _Tipo VARCHAR(65), IN _Report VARCHAR(256), IN _fecha VARCHAR(65), IN _Nombre VARCHAR(65), IN _Estado VARCHAR(65))
+    BEGIN
+        INSERT INTO Report(UserID, Tipo, Nombre, Estado, Reporte, Fecha)  
+            VALUES(
+                _ID,
+                _Tipo,
+                _Nombre,
+                _Estado,
+                _Report,
+                _fecha
+            );
+    END //
+DELIMITER ;
